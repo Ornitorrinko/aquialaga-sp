@@ -3,6 +3,62 @@ var helper = require('../helpers/index')
 	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia');
 
 var apiOcorrencias = function (model) {
+	var gm = require('googlemaps');
+	gm.geocode(fullAdressString, function(err2, data){
+	try{
+	  self.lat = data.results[0].geometry.location.lat;
+	  self.lng = data.results[0].geometry.location.lng; 
+	}catch(e){
+		self.errors = ['Endereço informado invalido'];
+	};
+
+	var _ = require('underscore'),
+    gm = require('googlemaps');
+    rangeToFindUnidadesKm = 10, 
+    rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111,
+    gm.geocode(params.search, function(err, data){
+        try{
+          var geolocation = data.results[0].geometry.location;
+          var query = {
+            lat: {
+                gte: geolocation.lat - rangeToFindUnidadesDegree
+              , lt:geolocation.lat + rangeToFindUnidadesDegree
+            },
+            lng:{
+              gte: geolocation.lng - rangeToFindUnidadesDegree
+              , lt:geolocation.lng + rangeToFindUnidadesDegree
+            }
+          };
+
+          var limit = 10,
+              skip  = limit * params.page || 0;
+
+          geddy.model.Endereco.all(query, {skip: skip, limit: limit}, function(err, enderecos){
+            if(err) throw err;
+            var unidades = [],
+                idsUnidades = _.pluck(enderecos, 'unidadeId');
+
+            geddy.model.Unidade._buildNotArchivedUnidadesWithQuadras(idsUnidades, 0, unidades, function(unidades){
+              params.searchGeo = geolocation;
+              self.respond({
+                params: params
+              , unidades: unidades
+              }, {
+                template: '/unidades/list'
+              });
+            });
+          });
+      }
+      catch(e){
+        self.respond({
+          params: params
+        , unidades: null
+        }, {
+          template: '/unidades/list'
+        });
+      }
+    }, 'false');
+
 	return {
 		listar : function(callBack) {
 			CETOcorrenciasDb.all()

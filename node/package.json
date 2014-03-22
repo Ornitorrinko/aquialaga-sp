@@ -22,5 +22,6 @@
     , "moment": "*"
     , "moment-timezone": "*"
     , "commander" : "*"
+    , "googlemaps" :"*"
   }
 }
