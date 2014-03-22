@@ -5,23 +5,17 @@ var models = require('../models')
 function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
-			var db = models.sequelize
-				, query = 'select id, endereco, numero, latitude, longitude, quantidade\
-					from CETOcorrencia\
-					where 	latitude = ?\
-					and 	longitude = ?';
-
-			db
-			.query(query
-				, null
-				, {raw: false}
-				, [latitude, longitude])
-			.success(function(ocorrenciasDaCET){
-				callback(false, ocorrenciasDaCET);
-			})
-			.error(function(error){
-				callback(true, error);
-			});
+			CETOcorrencia
+				.find({where: {"latitude": latitude, "longitude": longitude}})
+				.success(function(ocorrenciasDaCET){
+					if(!ocorrenciasDaCET)
+						ocorrenciasDaCET = [];
+					
+					callback(false, ocorrenciasDaCET);
+				})
+				.error(function(error){
+					callback(true, error);
+				});
 		}
 		, salvar: function(ocorrencia, callback){
 			ocorrencia

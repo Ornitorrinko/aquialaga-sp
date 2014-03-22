@@ -5,18 +5,16 @@ function maps(){
 		byAddress: function(fullAddress, callback){
 			var geo = {};
 
-			gm.geocode(fullAdress, function(err, data){
+			gm.geocode(fullAddress, function(err, data){
 				try{
 					geo.lat = data.results[0].geometry.location.lat;
 					geo.lng = data.results[0].geometry.location.lng;
 				  	callback(null, geo);
 				}catch(e){
-					geo.errors = ['Endereço informado invalido'];
-					callback(geo, null);
+					callback(true, 'Não encontrei registros com o endereço fornecido');
 				}
 			});
 		}
-
 		, byGeolocation: function(latitude, longitude, callback){
 
 			var lat_lng = [latitude, longitude].map(function(ll){
@@ -30,7 +28,6 @@ function maps(){
 			      	callback(null, results);
 			});
 		}
-
 		, range: function(fullAddress, callback){
 			var self = this
 				_ = require('underscore')
