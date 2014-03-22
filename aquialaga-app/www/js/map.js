@@ -9,15 +9,16 @@ app.map = {
 		  'callback=app.map.initialize';
 		document.body.appendChild(script);
 	},
+	plotMarker: function(lat, lng){
+		var position = new google.maps.LatLng(lat, lng)
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map
+        });
+	},
 	plotMarkers: function(){
 		for (var i = 0; i < app.main.ocorrencias.length; i++) {
-	        var position = new google.maps.LatLng(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude)
-	        var marker = new google.maps.Marker({
-	            position: position,
-	            map: map,
-	          //  icon: image,
-	            title: app.main.ocorrencias[i].endereco
-	        });	        
+	        app.map.plotMarker(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude);
 	    }
 	},
 	plotMyPosition: function(){

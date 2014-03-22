@@ -25,8 +25,8 @@ app.main = {
 
 		var level = button.data('level');
 		var obj = {
-				latitude: app.position.coords.latitude
-			,	longitude: 	app.position.coords.longitude
+				latitude: app.myPosition.coords.latitude
+			,	longitude: 	app.myPosition.coords.longitude
 			,	nivel: level
 		}
 
@@ -34,9 +34,10 @@ app.main = {
 		
 		postOcorrencia.done(function(data){
 			alertify('Obrigado!', 'Ocorrencia efetuada com sucesso', 'bottom');
+			app.map.plotMarker(obj.latitude, obj.longitude);
 		});
 		postOcorrencia.fail(function(data){
-			var b = data;
+			alertify('Oops!', 'Ocorreu um erro', 'bottom');
 		});
 		postOcorrencia.always(function(){
 			button.button('reset');
