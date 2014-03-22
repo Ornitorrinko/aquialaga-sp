@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	<style type="text/css">
+		html,body : {  height: 100%}
+	</style>
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript">
+ var roadAtlasStyles = [
+    {
+      featureType: 'road.highway',
+      elementType: 'geometry',
+      stylers: [
+        { hue: '#ff0022' },
+        { saturation: 60 },
+        { lightness: -20 }
+      ]
+    },{
+      featureType: 'road.arterial',
+      elementType: 'all',
+      stylers: [
+        { hue: '#2200ff' },
+        { lightness: -40 },
+        { visibility: 'simplified' },
+        { saturation: 30 }
+      ]
+    },{
+      featureType: 'road.local',
+      elementType: 'all',
+      stylers: [
+        { hue: '#f6ff00' },
+        { saturation: 50 },
+        { gamma: 0.7 },
+        { visibility: 'simplified' }
+      ]
+    },{
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [
+        { saturation: 40 },
+        { lightness: 40 }
+      ]
+    },{
+      featureType: 'road.highway',
+      elementType: 'labels',
+      stylers: [
+        { visibility: 'on' },
+        { saturation: 98 }
+      ]
+    },{
+      featureType: 'administrative.locality',
+      elementType: 'labels',
+      stylers: [
+        { hue: '#0022ff' },
+        { saturation: 50 },
+        { lightness: -10 },
+        { gamma: 0.90 }
+      ]
+    },{
+      featureType: 'transit.line',
+      elementType: 'geometry',
+      stylers: [
+        { hue: '#ff0000' },
+        { visibility: 'on' },
+        { lightness: -70 }
+      ]
+    }
+  ];
+  		var lngDef=-46.68095949999997;
+		var latDef=-23.5634665;
+ 		var geocoder;
+  		var map;
+  		var infowindow;
+  		var drawingManager;
+  		var geodesic;
+
+
+		var polyOptions = {
+		    strokeColor: '#FF0000',
+		    strokeOpacity: 1.0,
+		    strokeWeight: 3
+		}
+		var geodesicOptions = {
+			strokeColor: '#CC0099',
+			strokeOpacity: 1.0,
+			strokeWeight: 3,
+			geodesic: true
+		}
+
+    		/*"neighborhood"
+  		"political"
+  		"route"
+  		"postal_code"
+  		"street_address"*/
+		function initializeMaps() {
+			infowindow = new google.maps.InfoWindow()
+    		geocoder = new google.maps.Geocoder();		
+			var mapDiv = document.getElementById("map_canvas")
+			var latlng = new google.maps.LatLng(latDef, lngDef);
+		    var mapOptions = {
+		      zoom: 10,
+		      center: latlng,
+		      zoomControl: false,
+		      mapTypeControlOptions: {
+      			mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'usroadatlas']
+    		  }
+		    };
+
+		    map = new google.maps.Map(mapDiv, mapOptions);
+
+			var styledMapOptions = {
+			    name: 'Mapa molhado'
+			};
+
+			var usRoadMapType = new google.maps.StyledMapType(roadAtlasStyles, styledMapOptions);
+			map.mapTypes.set('usroadatlas', usRoadMapType);
+  			map.setMapTypeId('usroadatlas');
+
+			drawingManager = new google.maps.drawing.DrawingManager();
+			drawingManager.setMap(map);			
+			document.getElementById("toolbar").style.display = "block";
+			geodesic = new google.maps.Polyline(geodesicOptions);
+  			geodesic.setMap(map);
+  			google.maps.event.addListener(map, 'click', addLocation)
+		}
+		
+		function click(){
+			console.log('clicked at:' , event);
+		}
+
+		function adjustHeading() {
+			var path = poly.getPath();
+			var pathSize = path.getLength();
+			var heading = google.maps.geometry.spherical.computeHeading(path.getAt(0), path.getAt(pathSize - 1));
+			document.getElementById('heading').value = heading;
+			document.getElementById('origin').value = path.getAt(0).lat()
+			      + "," + path.getAt(0).lng();
+			document.getElementById('destination').value = path.getAt(pathSize - 1).lat()
+			      + "," + path.getAt(pathSize - 1).lng();
+		}
+		/*
+		function initializeMaps() {
+		var mapDiv = document.getElementById("map_canvas")
+		try {
+			var latlng = new google.maps.LatLng(-33.897, 150.099);
+		    var myOptions = {
+		      zoom: 9,
+		      center: latlng,
+		      mapTypeId: google.maps.MapTypeId.ROADMAP
+		    };
+
+		    map = new google.maps.Map(mapDiv, myOptions);
+
+			var rendererOptions = { map: map };
+			directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+
+			var point1 = new google.maps.LatLng(-33.8975098545041,151.09962701797485);
+			var point2 = new google.maps.LatLng(-33.8584421519279,151.0693073272705);
+			var point3 = new google.maps.LatLng(-33.87312358690301,151.99952697753906);
+			var point4 = new google.maps.LatLng(-33.84525521656404,151.0421848297119);
+
+			var wps = [{ location: point1 }, { location: point2 }, {location: point4}];
+
+			var org = new google.maps.LatLng ( -33.89192157947345,151.13604068756104);
+			var dest = new google.maps.LatLng ( -33.69727974097957,150.29047966003418);
+
+			var request = {
+					origin: org,
+					destination: dest,
+					waypoints: wps,
+					travelMode: google.maps.DirectionsTravelMode.DRIVING
+					};
+
+			directionsService = new google.maps.DirectionsService();
+			directionsService.route(request, function(response, status) {
+						if (status == google.maps.DirectionsStatus.OK) {
+							directionsDisplay.setDirections(response);
+						}
+						else
+							alert ('failed to get directions');
+					});
+		} catch (ex){
+			console.log(ex)
+		}
+		}*/
+
+		function loadScript() {
+		    var script = document.createElement('script');
+		    script.type = 'text/javascript';
+		    script.src = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCUAyRDR6Lb3pYnn_QvGg9-SSlB1VowtN4&sensor=false&libraries=places&libraries=drawing&language=pt-br&callback=initializeMaps';
+
+		    // https://maps.googleapis.com/maps/api/js?
+		    document.body.appendChild(script);
+
+		}
+		
+		function areaAlagamento(latlng){
+		    var propCircle = {
+		      strokeColor: '#FF0000',
+		      strokeOpacity: 0.8,
+		      strokeWeight: 2,
+		      fillColor: '#FF0000',
+		      fillOpacity: 0.35,
+		      map: map,
+		      center: latlng,
+		      radius: 50
+		    };
+		    // Add the circle for this city to the map.
+		    circle = new google.maps.Circle(propCircle);
+  		}
+
+		function teste1() {
+			var address = document.getElementById("address").value;
+			geocoder.geocode( { 'address': address}, function(results, status) {
+			console.log('arguments',arguments);
+			  if (status == google.maps.GeocoderStatus.OK) {
+			    
+			    map.setCenter(results[0].geometry.location);
+			    map.setZoom(15)
+			    var marker = new google.maps.Marker({
+			        map: map,
+			        position: results[0].geometry.location
+			    });
+			    infowindow.setContent('Fique esperto!!');
+			    infowindow.open(map, marker);
+			    
+			    var marker = new google.maps.Marker({
+			        map: map,
+			        position: results[0].geometry.location
+			    });
+			    
+			    var latlng = new google.maps.LatLng(results[0].geometry.bounds.Aa.j
+			    	  								,results[0].geometry.bounds.qa.k);
+
+			    // var marker = new google.maps.Marker({
+			    //     map: map,
+			    //     position: latlng
+			    // });
+
+			    areaAlagamento(latlng)
+			    // var infowindow1 = new google.maps.InfoWindow()
+			    // infowindow1.setContent('results[0].geometry.bounds.Aa:' );
+			    // infowindow1.open(map, marker);
+			    
+
+			  } else {
+			    alert("Geocode was not successful for the following reason: " + status);
+			  }
+			});
+		}
+
+
+
+		
+		window.onload = loadScript;
+
+	</script>
+	<body>
+            <div  id="toolbar" style="width:100%;height:50px;display:none">
+            	<input id ="address" type= "text" style="width:300px;" value="Rua Cônego Eugênio Leite, 623 - Pinheiros, Sao Paulo - São Paulo, 05414-011, Brazil"/>
+            	<button onclick="teste1()">Teste1</button>
+            </div>
+            <div  id="map_canvas" style="width:100%;height:500px"></div>
+
+	</body>
+</html>
