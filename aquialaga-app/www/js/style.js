@@ -4,6 +4,6 @@ $(document).ready(function(){
 		footer	= $('#footer');
 	
 
-	var height = ($(window).height() - header.height() - footer.height() - 40);
+	var height = ($(window).height() - header.height() - footer.height() - 10);
 	content.height(height);
 });
