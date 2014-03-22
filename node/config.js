@@ -11,12 +11,22 @@ var environments = {
 				, 	mongoSessionCollection : 'session'
 				,   parametrosImportacao : { codigoAlagamento : 302, nivelAlagamentoPadrao : 1 }
 				,   jobs : [ { name : 'Obter dados CET'
-				             , interval : 1 * 60 * 10 // 10 minutos
+				             , interval : 1000 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
 				             		
 				             		var api = new (require('./api/importador').api)()
 				             		api.importar()
+
+				               	} 
+							  },
+							  { name : 'Lat-Lng'
+				             , interval : 1 * 60 * 10 // 10 minutos
+				             , method : 
+				             	function() { 
+				             		
+				             		var api = new (require('./api/importador').api)()
+				             		api.preencherLatLng()
 
 				               	} 
 							  } 
