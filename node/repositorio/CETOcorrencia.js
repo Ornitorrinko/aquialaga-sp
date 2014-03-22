@@ -6,6 +6,8 @@ var CETOcorrencia = function(sequelize, DataTypes){
 			, latitude:  {type: DataTypes.FLOAT, allowNull : false }
 			, longitude: {type: DataTypes.FLOAT, allowNull : false }
 			, quantidade: {type: DataTypes.INTEGER, allowNull : false }		  
+			, dataOcorrencia : {type: DataTypes.DATE, allowNull : false }
+			, nivel : {type: DataTypes.INTEGER, allowNull : false }
 		}
 		,
 		{
