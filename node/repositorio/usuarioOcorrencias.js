@@ -1,11 +1,14 @@
-var usuarioOcorrencias = function(	sequelize, DataTypes ){
+var usuarioOcorrencia = function(	sequelize, DataTypes ){
 
-	return sequelize.define('usuarioOcorrencias', {
+	return sequelize.define('usuarioOcorrencia', {
 		  id  : { type : DataTypes.INTEGER, allowNull : false }
+		  , latitude: { type : DataTypes.FLOAT, allowNull : false }
+		  , longitude: { type : DataTypes.FLOAT, allowNull : false }
+		  , nivel: { type : DataTypes.INTEGER, allowNull : false }
 		}
 		,
 		{ 
-			tableName : 'usuarioOcorrencias'
+			tableName : 'usuarioOcorrencia'
 	    	, timestamps : true
 		}
 	)

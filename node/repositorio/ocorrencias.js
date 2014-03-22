@@ -1,5 +1,5 @@
 var CETOcorrencia = require('./CETOcorrencia')
-	, usuarioOcorrencia = require('./usuarioOcorrencias');
+	, usuarioOcorrencia = require('./usuarioOcorrencia');
 
 function ocorrencias(){
 	return{
