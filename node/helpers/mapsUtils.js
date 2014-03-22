@@ -21,11 +21,8 @@ var Maps = function(){
 		var latlng = new google.maps.LatLng(latitude, longitude);
 
 		geo.geocode({'latlng': latlng}, function(results, status){
-			if (status == google.maps.GeocoderStatus.OK){
-				console.log('results=>', results);
-				
+			if (status == google.maps.GeocoderStatus.OK)
 		      	callback(null, results);
-			}
 		    else
 		    	callback({error: 'The search failed due to: ' + status},null);
 		});

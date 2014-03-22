@@ -53,12 +53,12 @@ var apiOcorrencia = function (model){
 
 module.exports.apiRoutes = function () {
 	return [
-		{ httpMethod : 'get', route : '/ocorrencias/:lat/:long'
+		{ httpMethod : 'get', route : '/ocorrencias/:lat/:lng'
 		, func : 
 			function(req, callback) {
 				var	params = req.params
-					, latitude = params.latitude
-					, longitude = params.longitude
+					, latitude = params.lat
+					, longitude = params.lng
 					, model = {
 						latitude: latitude
 						, longitude: longitude

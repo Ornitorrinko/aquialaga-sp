@@ -14,14 +14,13 @@ var helpers = require('../helpers')
 			   +'  left join CETOcorrencia as CETOcorrencia  on (CETOcorrencia.endereco = ocorrencia.LOCALDAOCORRENCIA '
 			   +'   and ocorrencia.ALTURANUMERICA = CETOcorrencia.numero)'
 			   +' where dataImportacao is null'
-			   +' 	  and ocorrencia.codigo = '+ config.parametrosImportacao.codigoAlagamento
+			   +' 	  and ocorrencia.codigo = ? '
 			   +' group by str_to_date(ocorrencia.chegada, "%d/%m/%Y %H:%i")'
 			   +'          ,ocorrencia.LOCALDAOCORRENCIA'
 			   +'          ,ocorrencia.ALTURANUMERICA'
 			   +' 		  ,CETOcorrencia.latitude'
 			   +' 		  ,CETOcorrencia.longitude'
 			   +' limit 10';
-			   console.log(_sql)
 	var _updCMD = "update ocorrencia set\
 	                     dataImportacao = NOW()\
 	              where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
@@ -37,12 +36,13 @@ var Importador = function (){
 		    							  })
 		    }
 
-			sequelize.query( _sql, null, { raw : true } , [] )
+			sequelize.query(_sql, null, {raw : true} , [config.parametrosImportacao.codigoAlagamento])
 			.error(function(){
 				console.log('errors:', JSON.stringify(arguments))
 			})
-			.success(function ( items ) {
-				console.log('success:', JSON.stringify(arguments))
+			.success(function () {
+
+
 				items.forEach( function ( item ) {
 				
 					CETOcorrencia.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
