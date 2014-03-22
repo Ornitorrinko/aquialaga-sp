@@ -20,12 +20,23 @@ app.map = {
 				var pos = new google.maps.LatLng(app.position.coords.latitude,
 					app.position.coords.longitude);
 				
-				var marker = new google.maps.Marker({
-				      position: pos,
-				      map: map,
-				      title: 'Hello World!'
-				  });
-
+				var image = new google.maps.MarkerImage(
+						'img/bluedot_retina.png',
+					null, // size
+					null, // origin
+					new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
+					new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
+				);
+				// then create the new marker
+				myMarker = new google.maps.Marker({
+					flat: true,
+					icon: image,
+					map: map,
+					optimized: false,
+					position: pos,
+					title: 'I might be here',
+					visible: true
+				});
 
 				map.setCenter(pos);
 		} else {

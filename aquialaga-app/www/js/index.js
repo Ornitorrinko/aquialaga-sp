@@ -1,47 +1,58 @@
 var app = {
     position: {},
-    // Application Constructor
     initialize: function() {
         this.bindEvents();
     },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
     },
-    // Update DOM on a Received Event
     receivedEvent: function(id) {
-        navigator.geolocation.getCurrentPosition(function(position){
+        var options = { 
+            /*enableHighAccuracy: true,
+            maximumAge: 30000,*/
+            timeout: 270000 
+        };
+
+        if (app.isPhoneGap) {
+            alert('watch');
+            navigator.geolocation.watchPosition(
+                  app.onGetPositionSuccess
+                , app.onGetPossitionError
+                , options
+            );
+        } else if ( navigator.geolocation ) {
+            alert('getPos');
+            navigator.geolocation.getCurrentPosition( app.onGetPositionSuccess, app.onGetPossitionError );
+        }
+    },
+    onGetPositionSuccess: function(position){
+            alert('agora foi');
             app.position = position;
             app.map.loadScript();
             app.main.bindEvents();
-        }, app.onGetPossitionError);
     },
-    onGetPossitionError: function(error){
+    onGetPossitionError: function(errorFlag, a, b){
+         alert('falhou '+ JSON.stringify(errorFlag));
          if (errorFlag) {
-            var content = 'Error: The Geolocation service failed.';
+            var content = 'Erro: O serviço de geolocalização falhou.';
           } else {
-            var content = 'Error: Your browser doesn\'t support geolocation.';
+            var content = 'Erro: Seu navegador não suporta geolocalização.';
           }
-
+          var mapOptions = {
+            zoom: 17
+            };
+            
+          map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
           var options = {
             map: map,
             position: new google.maps.LatLng(60, 105),
             content: content
           };
 
-          var infowindow = new google.maps.InfoWindow(options);
           map.setCenter(options.position);
-
     },
     isPhoneGap: function() {
         return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
