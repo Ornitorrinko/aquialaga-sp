@@ -4,25 +4,22 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        
+        <meta name="viewport" content="width=device-width">
         <title>Aqui alaga</title>
         
         <link rel="stylesheet" href="assets/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.css" />
         <link rel="stylesheet" href="css/main.css" />
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
     </head>
-
     <body>
         <div data-role="page">
-            <div data-role="header" style="overflow:hidden;">
+            <div data-role="header" id="header" data-position="fixed" style="overflow:hidden;">
             <h1>Aqui alaga</h1>
                 
             </div><!-- /header -->
-            <div role="main" class="ui-content">
+            <div role="main" data-position="fixed" id="content" class="ui-content">
                 <div  id="map_canvas" class="map"></div>
             </div>
-            <div data-role="footer">
+            <div data-role="footer" data-position="fixed" id="footer" class="footer">
                 <h4>Page Footer</h4>
             </div>
         </div>
@@ -32,10 +29,14 @@
         <!-- ## end of lib script -->
         <script src="js/jquery.min.js"></script>
         <script src="assets/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+        <script type="text/javascript" src="js/style.js"></script>
 
         <script type="text/javascript">
-            app.initialize();
+            if(app.isPhoneGap())
+                app.initialize();
+            else
+                app.onDeviceReady();
         </script>
     </body>
 </html>
