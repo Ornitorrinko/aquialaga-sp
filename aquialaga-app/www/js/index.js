@@ -1,6 +1,6 @@
 var app = {
     myPosition: {},
-    host: 'http://localhost:3001/',
+    host: 'http://179.184.209.215:3001/',
     initialize: function() {
         this.bindEvents();
     },
@@ -31,14 +31,7 @@ var app = {
     },
     onGetPositionSuccess: function(position){
             console.log('agora foi');
-            //testando
-            app.myPosition = {
-                coords:{
-                    latitude: -23.5505,
-                    longitude: -46.6333
-                }
-            }
-            //app.myPosition = position;
+            app.myPosition = position;
             app.main.bindEvents();
     },
     onGetPossitionError: function(errorFlag, a, b){
