@@ -60,6 +60,13 @@ var helpers = require('../helpers/index')
 module.exports.api = function(){
 
 }
+
+module.exports.apiRoutes = function () {
+	return []
+}()
+
+
+
 /*connection.query('SELECT * FROM users WHERE id = ?', [userId], function(err, results) {
   // ...
 
