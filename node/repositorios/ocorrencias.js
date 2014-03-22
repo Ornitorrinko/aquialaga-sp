@@ -1,21 +1,40 @@
 var models = require('../models')
+	, Q = require('q')
     , CETOcorrencia = models.CETOcorrencia
-	, usuarioOcorrencia = models.usuarioOcorrencia
+	, UsuarioOcorrencia = models.usuarioOcorrencia
 
 function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
-			CETOcorrencia
-				.find({where: {"latitude": latitude, "longitude": longitude}})
-				.success(function(ocorrenciasDaCET){
-					if(!ocorrenciasDaCET)
-						ocorrenciasDaCET = [];
-					
-					callback(false, ocorrenciasDaCET);
+
+			var rangeToFindUnidadesKm = 10
+			  , rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111
+			  , query = {
+			  		where: {
+			            latitude: {
+			                gte: latitude - rangeToFindUnidadesDegree
+			              , lt: latitude + rangeToFindUnidadesDegree
+			            },
+			            longitude: {
+			              	gte: longitude - rangeToFindUnidadesDegree
+			              , lt: longitude + rangeToFindUnidadesDegree
+			            }
+			  		}
+			  	}
+				, gettingOcorrenciasDaCET = CETOcorrencia.find(query)
+				, gettingOcorrenciasDosUsuarios = UsuarioOcorrencia.find(query);
+
+
+			Q.all([gettingOcorrenciasDaCET, gettingOcorrenciasDosUsuarios])
+				.spread(function(ocorrenciasDaCET, ocorrenciasDosUsuarios){
+					callback(false, {CET: ocorrenciasDaCET
+						, Usuarios: ocorrenciasDosUsuarios
+					});
 				})
-				.error(function(error){
+				.fail(function(error){
 					callback(true, error);
-				});
+				})
+				.done();
 		}
 		, salvar: function(ocorrencia, callback){
 			ocorrencia

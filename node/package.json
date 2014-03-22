@@ -24,5 +24,6 @@
     , "moment-timezone": "*"
     , "commander" : "*"
     , "googlemaps" :"*"
+    , "q": "*"
   }
 }

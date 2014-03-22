@@ -6,6 +6,8 @@ function getMethodAsAPI( route, method ){
 			for (var i = value.length - 1; i >= 0; i--) {
 				var val = value[i]
 			};
+			res.header("Access-Control-Allow-Origin", "*");
+			res.header("Access-Control-Allow-Headers", "X-Requested-With");
 			res.json(value)
 		})
 

@@ -5,7 +5,6 @@ var  express = require('express')
   
 require('./helpers')
 
-
 var app = express();
 exports.app = app
 
@@ -46,5 +45,4 @@ var server = http.createServer( app )
 
 server.listen( app.get('port'), function() {
  	console.log("API server listening on port " + app.get('port'))
-})
-
+});

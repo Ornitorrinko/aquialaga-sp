@@ -28,27 +28,6 @@ function maps(){
 			      	callback(null, results);
 			});
 		}
-		, range: function(fullAddress, callback){
-			var self = this
-				_ = require('underscore')
-			    , rangeToFindUnidadesKm = 10
-			    , rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111;
-
-			self.byAddress(fullAddress, function(err, geoData){
-				var query = {
-		            lat: {
-		                gte: geoData.lat - rangeToFindUnidadesDegree
-		              , lt:geoData.lat + rangeToFindUnidadesDegree
-		            },
-		            lng:{
-		              gte: geolocation.lng - rangeToFindUnidadesDegree
-		              , lt:geolocation.lng + rangeToFindUnidadesDegree
-		            }
-		        };
-
-		        callback(null, query);
-			});
-		}
 	}
 };
 
