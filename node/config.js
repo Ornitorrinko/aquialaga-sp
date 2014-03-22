@@ -9,10 +9,13 @@ var environments = {
 
 				,	mongoUrl:  'mongodb://localhost/dev'
 				, 	mongoSessionCollection : 'session'
+				,   parametrosImportacao : { codigoAlagamento : 302, nivelAlagamentoPadrao : 1 }
 				,   jobs : [ { name : 'Sincronizar corridas'
 				             , interval : 1000 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
+				             		var api = new (require('./api/importador').api)()
+				             		api.importar()
 				               	} 
 							  } 
 						   ]
