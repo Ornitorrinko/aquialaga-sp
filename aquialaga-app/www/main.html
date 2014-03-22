@@ -19,8 +19,28 @@
             <div role="main" data-position="fixed" id="content" class="ui-content">
                 <div  id="map_canvas" class="map"></div>
             </div>
+            <div data-role="popup" id="popupReport" class="ui-content">
+                <a data-inline="true" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-icon-top ui-btn-up-c">
+                    <span class="ui-btn-inner ui-btn-corner-all">
+                        <span class="ui-btn-text">Leve</span>
+                        <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
+                    </span>
+                </a>
+                <a data-inline="true" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-icon-top ui-btn-up-c">
+                    <span class="ui-btn-inner ui-btn-corner-all">
+                        <span class="ui-btn-text">Médio</span>
+                        <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
+                    </span>
+                </a>
+                <a data-inline="true" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-icon-top ui-btn-up-c">
+                    <span class="ui-btn-inner ui-btn-corner-all">
+                        <span class="ui-btn-text">Foda</span>
+                        <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
+                    </span>
+                </a>
+            </div>
             <div data-role="footer" data-position="fixed" id="footer" class="footer">
-                <button type="button" disabled data-loading-text="Enviando..." id="btn-send">Alagoooouuu!</button>
+                <a type="button" href="#popupReport" data-transition="slideup" data-position-to="#footer" data-rel="popup" data-loading-text="Enviando...">Alagoooouuu!</a>
             </div>
         </div>
         <!-- ## start of lib script -->

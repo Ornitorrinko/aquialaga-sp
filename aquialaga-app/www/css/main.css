@@ -2,9 +2,14 @@ html,body : {  height: 100%}
 
 .map{
 	width:100%;
-	height:100%;
+	height:50%;
 }
 
 .footer{
 	height: 80px;
+}
+
+#popupReport-popup{
+	bottom: 100px !important;
+	top: auto !important;
 }
