@@ -114,7 +114,7 @@ module.exports.apiRoutes = function () {
 			}
 		}, 
 				
-		{ httpMethod : 'post', route : '/v1/usuario/corrida/aguardando'
+		{ httpMethod : 'post', route : '/ocorrencias'
 		, func : 
 		    function( req, callback ) {
 		  		var api = new apiCorrida()
