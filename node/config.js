@@ -10,8 +10,8 @@ var environments = {
 				,	mongoUrl:  'mongodb://localhost/dev'
 				, 	mongoSessionCollection : 'session'
 				,   parametrosImportacao : { codigoAlagamento : 302, nivelAlagamentoPadrao : 1 }
-				,   jobs : [ { name : 'Sincronizar corridas'
-				             , interval : 1000 * 60 * 10 // 10 minutos
+				,   jobs : [ { name : 'Obter dados CET'
+				             , interval : 1 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
 				             		var api = new (require('./api/importador').api)()
@@ -27,6 +27,9 @@ var environments = {
 							, port    	: 3306
 							, pool    	: { maxConnections : 15, maxIdleTime: 30}
 							, type    	: "mysql"
+							, logger    : function(){
+
+							  }
 							}
 				, 	keys: {
 						googleMaps: ""
@@ -42,13 +45,7 @@ var environments = {
 
 				,	mongoUrl:  'mongodb://localhost/dev'
 				, 	mongoSessionCollection : 'session'
-				,   jobs : [ { name : 'Sincronizar corridas'
-				             , interval : 1000 * 60 * 10 // 10 minutos
-				             , method : 
-				             	function() { 
-				               	} 
-							  } 
-						   ]
+				,   jobs : [ ]
 				,	apiNames : ['ocorrencia']
 				,	db :  { host 		: "179.184.209.219" 
 							, user 		: "aqui-alaga-sp"

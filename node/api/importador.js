@@ -2,33 +2,34 @@ var helpers = require('../helpers')
     , models = require('../models')
 	, config = helpers.config
 	, CETOcorrencia = models.CETOcorrencia
-	, sequelize = models.sequelize
+	, sequelize = models.sequelize;
 
-	var _sql = "SELECT str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i') data\
-						,ocorrencia.LOCALDAOCORRENCIA\
-						,ocorrencia.ALTURANUMERICA\
-						,CETOcorrencia.latitude\
-						,CETOcorrencia.longitude\
-						,count(*) quantidade\
-				FROM ocorrencia\
-				 left join CETOcorrencia as CETOcorrencia  on (CETOcorrencia.endereco = ocorrencia.LOCALDAOCORRENCIA \
-				  and ocorrencia.ALTURANUMERICA = CETOcorrencia.numero)
-				where dataImportacao is null\
-					  and ocorrencia.codigo = "+ config.parametrosImportacao.nivelAlagamentoPadrao + "\
-				group by str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i')\
-				         ,ocorrencia.LOCALDAOCORRENCIA\
-				         ,ocorrencia.ALTURANUMERICA\
-						  ,CETOcorrencias.latitude\
-						  ,CETOcorrencias.longitude\
-				limit 10";
-
+	var _sql =  ' SELECT str_to_date(ocorrencia.chegada, "%d/%m/%Y %H:%i") data'
+               +' ,ocorrencia.LOCALDAOCORRENCIA'
+			   +' 		,ocorrencia.ALTURANUMERICA'
+			   +' 		,CETOcorrencia.latitude'
+			   +' 		,CETOcorrencia.longitude'
+			   +' 		,count(*) quantidade'
+			   +' FROM ocorrencia'
+			   +'  left join CETOcorrencia as CETOcorrencia  on (CETOcorrencia.endereco = ocorrencia.LOCALDAOCORRENCIA '
+			   +'   and ocorrencia.ALTURANUMERICA = CETOcorrencia.numero)'
+			   +' where dataImportacao is null'
+			   +' 	  and ocorrencia.codigo = '+ config.parametrosImportacao.codigoAlagamento
+			   +' group by str_to_date(ocorrencia.chegada, "%d/%m/%Y %H:%i")'
+			   +'          ,ocorrencia.LOCALDAOCORRENCIA'
+			   +'          ,ocorrencia.ALTURANUMERICA'
+			   +' 		  ,CETOcorrencia.latitude'
+			   +' 		  ,CETOcorrencia.longitude'
+			   +' limit 10';
+			   console.log(_sql)
 	var _updCMD = "update ocorrencia set\
 	                     dataImportacao = NOW()\
 	              where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
 
-var importador = function (){
+var Importador = function (){
 	return {
 		importar : function() {
+
 		    var execUpd = function( values ){
 		    	sequelize.connection.query( _updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA]
 		    		                      , function(){
@@ -36,8 +37,12 @@ var importador = function (){
 		    							  })
 		    }
 
-			sequelize.query( _sql, null, { raw : true } , [] ).success(function ( items ) {
-				
+			sequelize.query( _sql, null, { raw : true } , [] )
+			.error(function(){
+				console.log('errors:', JSON.stringify(arguments))
+			})
+			.success(function ( items ) {
+				console.log('success:', JSON.stringify(arguments))
 				items.forEach( function ( item ) {
 				
 					CETOcorrencia.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
@@ -73,9 +78,7 @@ var importador = function (){
 
 
 
-module.exports.api = function(){
-
-}
+module.exports.api = Importador
 
 module.exports.apiRoutes = function () {
 	return []
