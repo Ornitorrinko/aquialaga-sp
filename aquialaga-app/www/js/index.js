@@ -1,5 +1,6 @@
 var app = {
-    position: {},
+    myPosition: {},
+    host: 'http://localhost:3001/',
     initialize: function() {
         this.bindEvents();
     },
@@ -30,8 +31,14 @@ var app = {
     },
     onGetPositionSuccess: function(position){
             console.log('agora foi');
-            app.position = position;
-            app.map.loadScript();
+            //testando
+            app.myPosition = {
+                coords:{
+                    latitude: -23.5505,
+                    longitude: -46.6333
+                }
+            }
+            //app.myPosition = position;
             app.main.bindEvents();
     },
     onGetPossitionError: function(errorFlag, a, b){

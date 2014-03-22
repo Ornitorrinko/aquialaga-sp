@@ -68,6 +68,39 @@ html,body : {
 	top: auto !important;
 }
 
+.alert.top{
+	top: 70px;
+}
+
+.alert.bottom{
+	bottom: 10px;
+}
+
+.alert{
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	background-color: rgba(31, 32, 30, 0.8);
+    border-radius: 5px;
+    color: #FFFFFF;
+    height: auto;
+    padding: 5px;
+    position: absolute;
+    width: 180px;
+    z-index: 9999;
+}
+
+.alert-body {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.alert-title {
+    border-bottom: 1px solid #FFFFFF;
+    padding: 0 0 5px;
+    text-align: center;
+}
+
 /*start maps*/
 @-moz-keyframes pulsate {
 	from {
