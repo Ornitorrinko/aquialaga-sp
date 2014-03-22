@@ -1,5 +1,5 @@
 var map;
-
+var app = app ? app : {};
 app.map = {
 	loadScript: function(){
 		var script = document.createElement('script');

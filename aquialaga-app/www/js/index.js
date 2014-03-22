@@ -23,13 +23,25 @@ var app = {
         navigator.geolocation.getCurrentPosition(function(position){
             app.position = position;
             app.map.loadScript();
+            app.main.bindEvents();
         }, app.onGetPossitionError);
     },
     onGetPossitionError: function(error){
-        navigator.geolocation.getCurrentPosition(function(position) {
-            app.position = position;
-            app.map.loadScript();
-        });
+         if (errorFlag) {
+            var content = 'Error: The Geolocation service failed.';
+          } else {
+            var content = 'Error: Your browser doesn\'t support geolocation.';
+          }
+
+          var options = {
+            map: map,
+            position: new google.maps.LatLng(60, 105),
+            content: content
+          };
+
+          var infowindow = new google.maps.InfoWindow(options);
+          map.setCenter(options.position);
+
     },
     isPhoneGap: function() {
         return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
