@@ -1,7 +1,7 @@
 var helpers = require('../helpers/index')
 	, maps = helpers.maps
 	, usuarioOcorrencia = require('../models').usuarioOcorrencia
-	, ocorrencias = require('../repositorios/ocorrencias');
+	, ocorrencias = require('../repositorios/ocorrencias')();
 
 var apiOcorrencia = function (model){	
 	
@@ -17,10 +17,13 @@ var apiOcorrencia = function (model){
 			ocorrencias
 				.findByGeolocation(self.model.latitude, self.model.longitude
 					, function(err, data){
-						console.log('data=>', data);
+						if(err)
+							callback(err, {});
+						else
+							callback(null, data);
 					});
-		},
-		reportar : function(callback) {
+		}
+		, reportar : function(callback) {
 			var error = [];
 			if(!self.model.latitude)
 				error.push('Wrong call, provide latitude');
@@ -48,6 +51,14 @@ var apiOcorrencia = function (model){
 						callback(null,data);
 				});
 		}
+		, geo: function(callback){
+			maps.byGeolocation(self.model.latitude, self.model.longitude, function(err, data){
+				if(err)
+					console.log('error=>', err);
+				else
+					callback(null, data);
+			});
+		}
 	};
 };
 
@@ -72,8 +83,8 @@ module.exports.apiRoutes = function () {
 						callback({data: data});
 				});
 			}
-		},	
-		{ httpMethod : 'post', route : '/ocorrencias'
+		}
+		, { httpMethod : 'post', route : '/ocorrencias'
 		, func : 
 		    function(req, callback) {
 		    	var model = req.body
@@ -87,7 +98,25 @@ module.exports.apiRoutes = function () {
 		    	});
 		  	}
 		}
+		, { httpMethod : 'get', route : '/get-geolocation/:lat/:lng'
+		, func : 
+		    function(req, callback) {
+				var	params = req.params
+					, latitude = params.lat
+					, longitude = params.lng
+					, model = {
+						latitude: latitude
+						, longitude: longitude
+					}
+					, api = new apiOcorrencia(model);
+
+				api.geo(function(error, data) {
+					if (error)
+						callback({result : '0', message : data});
+					else
+						callback({data: data});
+				});
+		  	}
+		}
 	]
 }()
-
-

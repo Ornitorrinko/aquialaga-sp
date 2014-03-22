@@ -6,4 +6,4 @@ exports.guid = require('node-uuid').v1
 exports.errorManager = require('./error')
 exports.xml = require('./xml')
 exports.config =  require('../config')
-exports.maps = require('./mapsUtils');
+exports.maps = require('./mapsUtils')();

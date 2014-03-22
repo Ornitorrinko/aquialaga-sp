@@ -10,7 +10,7 @@ function ocorrencias(){
 					from CETOcorrencia\
 					where 	latitude = ?\
 					and 	longitude = ?';
-					
+
 			db
 			.query(query
 				, null
@@ -23,14 +23,14 @@ function ocorrencias(){
 				callback(true, error);
 			});
 		}
-		, salvar: function(ocorrencia){
+		, salvar: function(ocorrencia, callback){
 			ocorrencia
 				.save()
 				.success(function(novaOcorrencia){
 					callback(null, novaOcorrencia);
 				})
 				.error(function(error){
-					callback(error, null);
+					callback({error: error.code}, null);
 				});
 		}
 	}

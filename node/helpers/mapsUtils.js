@@ -1,54 +1,58 @@
 var gm = require('googlemaps');
 
-var Maps = function(){
+function maps(){
+	return{
+		byAddress: function(fullAddress, callback){
+			var geo = {};
 
-	this.byAddress = function(fullAddress, callback){
-		var geo = {};
+			gm.geocode(fullAdress, function(err, data){
+				try{
+					geo.lat = data.results[0].geometry.location.lat;
+					geo.lng = data.results[0].geometry.location.lng;
+				  	callback(null, geo);
+				}catch(e){
+					geo.errors = ['Endereço informado invalido'];
+					callback(geo, null);
+				}
+			});
+		}
 
-		gm.geocode(fullAdress, function(err2, data){
-			try{
-				geo.lat = data.results[0].geometry.location.lat;
-				geo.lng = data.results[0].geometry.location.lng;
-			  	callback(null, geo);
-			}catch(e){
-				geo.errors = ['Endereço informado invalido'];
-				callback(geo, null);
-			}
-		});
-	};
+		, byGeolocation: function(latitude, longitude, callback){
 
-	this.byGeolocation = function(latitude, longitude, callback){
-		var latlng = new google.maps.LatLng(latitude, longitude);
+			var lat_lng = [latitude, longitude].map(function(ll){
+				return ll.toString();
+			});
 
-		geo.geocode({'latlng': latlng}, function(results, status){
-			if (status == google.maps.GeocoderStatus.OK)
-		      	callback(null, results);
-		    else
-		    	callback({error: 'The search failed due to: ' + status},null);
-		});
-	};
+			gm.reverseGeocode(lat_lng.join(','), function(err, results){
+				if(err)
+			    	callback({error: 'The search failed due to: ' + err}, null);
+			    else
+			      	callback(null, results);
+			});
+		}
 
-	this.range = function(fullAddress, callback){
-		var self = this
-			_ = require('underscore')
-		    , rangeToFindUnidadesKm = 10
-		    , rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111;
+		, range: function(fullAddress, callback){
+			var self = this
+				_ = require('underscore')
+			    , rangeToFindUnidadesKm = 10
+			    , rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111;
 
-		self.byAddress(fullAddress, function(err, geoData){
-			var query = {
-	            lat: {
-	                gte: geoData.lat - rangeToFindUnidadesDegree
-	              , lt:geoData.lat + rangeToFindUnidadesDegree
-	            },
-	            lng:{
-	              gte: geolocation.lng - rangeToFindUnidadesDegree
-	              , lt:geolocation.lng + rangeToFindUnidadesDegree
-	            }
-	        };
+			self.byAddress(fullAddress, function(err, geoData){
+				var query = {
+		            lat: {
+		                gte: geoData.lat - rangeToFindUnidadesDegree
+		              , lt:geoData.lat + rangeToFindUnidadesDegree
+		            },
+		            lng:{
+		              gte: geolocation.lng - rangeToFindUnidadesDegree
+		              , lt:geolocation.lng + rangeToFindUnidadesDegree
+		            }
+		        };
 
-	        callback(null, query);
-		});
-	};
+		        callback(null, query);
+			});
+		}
+	}
 };
 
-module.exports = Maps;
+module.exports = maps;
