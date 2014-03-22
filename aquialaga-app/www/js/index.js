@@ -1,5 +1,5 @@
-
 var app = {
+    position: {},
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -20,7 +20,18 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        
-        console.log('Received Event: ' + id);
+        navigator.geolocation.getCurrentPosition(function(position){
+            app.position = position;
+            app.map.loadScript();
+        }, app.onGetPossitionError);
+    },
+    onGetPossitionError: function(error){
+        navigator.geolocation.getCurrentPosition(function(position) {
+            app.position = position;
+            app.map.loadScript();
+        });
+    },
+    isPhoneGap: function() {
+        return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
     }
 };

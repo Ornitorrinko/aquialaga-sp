@@ -1,70 +1,79 @@
 var helper = require('../helpers/index')
+	, maps = helper.maps
 	, usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
-	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia');
+	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia')
+	, ocorrencias = require('../repositorio/ocorrencias');
 
-var apiOcorrencias = function (model) {	
+var apiOcorrencias = function (model){	
+	
+	var self = this;
+
+	this.model = model;
+
 	return {
-		listar : function(callBack) {
-			CETOcorrenciasDb.all()
-		},
-		metodo2 : function( callBack ) {
-		}		
-	}
-}
+		listar : function(callback) {
+			if(!self.model.latitude || !self.model.longitude)
+				callback(['Wrong call, provide geolocation'], {});
 
+			ocorrencias
+				.findByGeolocation(self.model.latitude, self.model.longitude
+					, function(err, data){
+
+					});
+		},
+		reportar : function(callback) {
+			var error = [];
+			if(!self.model.latitude)
+				error.push('Wrong call, provide latitude');
+
+			if(!self.model.longitude)
+				error.push('Wrong call, provide longitude');
+
+			if(!self.model.level)
+				error.push('Wrong call, provide level');
+
+			if(error.length > 0)
+				callback(error, {});
+
+			
+		}
+	};
+};
 
 module.exports.apiRoutes = function () {
 	return [
 		{ httpMethod : 'get', route : '/ocorrencias/:lat/:long'
 		, func : 
-			function( req, callback ) {
+			function(req, callback) {
 				var	params = req.params
 					, latitude = params.latitude
 					, longitude = params.longitude
-					, api = new apiOcorrencias();
-
-				api.listar()
-
-				api.criar( model, function( error , corridasResponse ) {
-					var result = {}
-					
-					if (error) {
-						console.log('***error:',error)
-						var response = { result : "0" }
-						if (typeof error == "boolean") {
-							if (corridasResponse.msg && corridasResponse.msg.messages )
-								response.message = corridasResponse.msg.messages;
-						} else {
-
-							if (error.msg )
-								response.message = error.msg.messages;
-						}
-
-						result = response
-					} else {
-						result =  corridasResponse
+					, model = {
+						latitude: latitude
+						, longitude: longitude
 					}
+					, api = new apiOcorrencias(model);
 
-					var i = utils.formaters.tryInt(result.id_corrida ? result.id_corrida : 0)
-					if (i > 0 ) 
-				  		api.corridaStatusPorId ( i , function( corridaDb ){
-				  			result.corrida = utils.formaters.corridaSituacao( corridaDb ).corrida
-				  			callback (  result )
-
-				  		} )
-				  	else
-				  		callback( result )
-				})
+				api.listar(function(error, data) {
+					if (error)
+						callback({result : '0', message : data});
+					else
+						callback({data: data});
+				});
 			}
-		}, 
-				
+		},	
 		{ httpMethod : 'post', route : '/ocorrencias'
 		, func : 
-		    function( req, callback ) {
-		  		var api = new apiCorrida()
-		  		api.corridaAguardandoRespostaMotoboy ( req.body.idUser , function( corrida ){
-		  			callback ( utils.formaters.corridaSituacao( corrida ) )
-		  		} )
+		    function(req, callback) {
+		    	var model = req.body
+		    		, api = new apiOcorrencias(model);
+
+		    	api.reportar(function(err, data){
+		    		if(err)
+		    			callback({result: 0, message: err});
+		    		else
+		    			callback({data: data});
+		    	});
 		  	}
 		}
 	]
