@@ -8,10 +8,7 @@ var apiOcorrencias = function ( model ) {
 		metodo1 : function( callBack ) {
 		},
 		metodo2 : function( callBack ) {
-		}
-
-
-				
+		}			
 	}
 }
 

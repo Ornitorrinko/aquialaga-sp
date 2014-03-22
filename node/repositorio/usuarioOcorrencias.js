@@ -4,10 +4,11 @@ var usuarioOcorrencias = function(	sequelize, DataTypes ){
 		  id  : { type : DataTypes.INTEGER, allowNull : false }
 		}
 		,
-		{ tableName : 'usuarioOcorrencias'
-	    , timestamps : true
+		{ 
+			tableName : 'usuarioOcorrencias'
+	    	, timestamps : true
 		}
 	)
 }
 
-module.exports = usuarioOcorrencias
+module.exports = usuarioOcorrencias;
