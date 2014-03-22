@@ -26,7 +26,7 @@ function ocorrencias(){
 			latitude = parseFloat(latitude)
 			longitude = parseFloat(longitude)
 
-			var   where : { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
+			var   where = { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
 			            , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
 			            }
 			var _connection = require('../repositorios').createConnection()
