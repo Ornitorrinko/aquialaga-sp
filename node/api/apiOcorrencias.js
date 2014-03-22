@@ -1,6 +1,14 @@
 var helper = require('../helpers/index')
 var usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
 
+var gm = require('googlemaps');
+      gm.geocode(fullAdressString, function(err2, data){
+        try{
+          self.lat = data.results[0].geometry.location.lat;
+          self.lng = data.results[0].geometry.location.lng; 
+      }catch(e){
+        self.errors = ['Endereço informado invalido'];
+      };
 
 
 var apiOcorrencias = function ( model ) {
