@@ -4,8 +4,8 @@ var CETOcorrencia = function(sequelize, DataTypes){
 		  	id  : 		{type: DataTypes.INTEGER, allowNull : false }
 			, endereco:	{type: DataTypes.STRING, allowNull : false }
 			, numero: 	{type: DataTypes.STRING, allowNull : false }
-			, latitude:  {type: DataTypes.INTEGER, allowNull : false }
-			, longitude: {type: DataTypes.INTEGER, allowNull : false }
+			, latitude:  {type: DataTypes.FLOAT, allowNull : false }
+			, longitude: {type: DataTypes.FLOAT, allowNull : false }
 			, quantidade: {type: DataTypes.INTEGER, allowNull : false }		  
 		}
 		,
