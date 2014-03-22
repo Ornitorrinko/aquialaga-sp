@@ -52,3 +52,5 @@ IOS/www/
 .Trashes
 
 plugins/org.apache.cordova.device/src/tizen/DeviceProxy.js
+
+aquialaga-app/plugins/ios.json
