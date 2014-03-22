@@ -16,7 +16,7 @@ var sequelize = new Sequelize	(	config.db.instance
 
 
 
-var models = [ 'usuarioOcorrencias' ]
+var models = [ 'usuarioOcorrencias' , 'CETOcorrencia']
 
 models.forEach(function(model) {
   module.exports[model] = sequelize.import(__dirname + '/' + model);

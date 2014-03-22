@@ -2,19 +2,12 @@ var path = require('path')
 
 function getMethodAsAPI( route, method ){
 	return function( req, res ) {
-			method( req , function( value ){
-				debugx( 'route: %s, query: %s, params: %s , body:%s\n\treturn: %s'
-					 , route
-					 , JSON.stringify(req.query)
-					 , JSON.stringify(req.params)
-					 , JSON.stringify(req.body)
-					 , JSON.stringify(value) 
-					 )
-				for (var i = value.length - 1; i >= 0; i--) {
-					var val = value[i]
-				};
-				res.json(value)
-			})
+		method( req , function( value ){
+			for (var i = value.length - 1; i >= 0; i--) {
+				var val = value[i]
+			};
+			res.json(value)
+		})
 
 	}
 }
