@@ -1,15 +1,30 @@
+
+
 var helpers = require('../helpers')
+    , mysql  = require('mysql')
     , models = require('../models')
 	, config = helpers.config
 	, CETOcorrencia = models.CETOcorrencia
 	, sequelize = models.sequelize;
 
-	var _sql =  'select * from ocorrencia_view where codigo = ? limit 10';
+	var _sql =  'select \
+				str_to_date(CHEGADA,"%d/%m/%Y %H:%i") data,\
+	            LOCALDAOCORRENCIA,\
+	            ALTURANUMERICA,\
+	            quantidade,\
+	            latitude,\
+	            longitude,\
+	            codigo\
+	            from ocorrencia_view\
+	            limit 100';
 
-	var _updCMD = "update ocorrencia set\
-	                     dataImportacao = NOW()\
-	              where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
+	var _updCMD = "update ocorrencia set dataImportacao = NOW()\n"
+	              +"where dataImportacao is null and LOCALDAOCORRENCIA = ?\n"
+	              +"and (     (? is null     and ALTURANUMERICA is null )\n"
+	              +"	   or (? is not null and ALTURANUMERICA = ? )\n"
+	              +")"
 
+var _connection = require('../repositorios').createConnection()
 var _importando = 0
 var Importador = function (){
 	return {
@@ -17,11 +32,15 @@ var Importador = function (){
 			if (_importando > 0) return;
 		    
 		    var execUpd = function( values ){
-		    	
-		    	sequelize.query( _updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA]
-		    		                      , function(){
-		    								console.log('que isso ?1:', JSON.stringidfy(arguments))
-		    							  })
+
+				var cmd = mysql.format(_updCMD, [ values.LOCALDAOCORRENCIA
+					                            , values.ALTURANUMERICA
+					                            , values.ALTURANUMERICA
+					                            , values.ALTURANUMERICA
+					                            ]);
+		    	_connection.query( cmd, function(){
+		    		console.log('***', [],JSON.stringify(arguments));
+		    	} )
 		    }
 		    
 			
@@ -33,9 +52,7 @@ var Importador = function (){
 			})
 			.success(function ( items ) {
 		    	_importando--;
-				console.log('success:', JSON.stringify(arguments))
 				items.forEach( function ( item ) {
-
 					CETOcorrencia.findOrCreate({ endereco : item.LOCALDAOCORRENCIA
 					                          , numero : item.ALTURANUMERICA
 					                          , quantidade : item.quantidade
