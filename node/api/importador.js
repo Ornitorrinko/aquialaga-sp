@@ -4,57 +4,45 @@ var helpers = require('../helpers')
 	, CETOcorrencia = models.CETOcorrencia
 	, sequelize = models.sequelize;
 
-	var _sql =  ' SELECT str_to_date(ocorrencia.chegada, "%d/%m/%Y %H:%i") data'
-               +' ,ocorrencia.LOCALDAOCORRENCIA'
-			   +' 		,ocorrencia.ALTURANUMERICA'
-			   +' 		,CETOcorrencia.latitude'
-			   +' 		,CETOcorrencia.longitude'
-			   +' 		,count(*) quantidade'
-			   +' FROM ocorrencia'
-			   +'  left join CETOcorrencia as CETOcorrencia  on (CETOcorrencia.endereco = ocorrencia.LOCALDAOCORRENCIA '
-			   +'   and ocorrencia.ALTURANUMERICA = CETOcorrencia.numero)'
-			   +' where dataImportacao is null'
-			   +' 	  and ocorrencia.codigo = ? '
-			   +' group by str_to_date(ocorrencia.chegada, "%d/%m/%Y %H:%i")'
-			   +'          ,ocorrencia.LOCALDAOCORRENCIA'
-			   +'          ,ocorrencia.ALTURANUMERICA'
-			   +' 		  ,CETOcorrencia.latitude'
-			   +' 		  ,CETOcorrencia.longitude'
-			   +' limit 10';
+	var _sql =  'select * from ocorrencia_view where codigo = ? limit 10';
+
 	var _updCMD = "update ocorrencia set\
 	                     dataImportacao = NOW()\
 	              where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
 
+var _importando = 0
 var Importador = function (){
 	return {
 		importar : function() {
-
+			if (_importando > 0) return;
+			console.log('entrei')
 		    var execUpd = function( values ){
 		    	sequelize.connection.query( _updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA]
 		    		                      , function(){
 		    								console.log('que isso ?1:', JSON.stringidfy(arguments))
 		    							  })
 		    }
-
+		    
 			sequelize.query(_sql, null, {raw : true} , [config.parametrosImportacao.codigoAlagamento])
 			.error(function(){
+		    	_importando--;
 				console.log('errors:', JSON.stringify(arguments))
 			})
-			.success(function () {
-
-
+			.success(function ( items ) {
+		    	_importando--;
+				console.log('success:', JSON.stringify(arguments))
 				items.forEach( function ( item ) {
-				
-					CETOcorrencia.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
-					                          , numero : items.ALTURANUMERICA
-					                          , quantidade : items.quantidade
-					                          , dataOcorrencia : items.data
+
+					CETOcorrencia.findOrCreate({ endereco : item.LOCALDAOCORRENCIA
+					                          , numero : item.ALTURANUMERICA
+					                          , quantidade : item.quantidade
+					                          , dataOcorrencia : item.data
 					                          , longitude : item.longitude
 					                          , latitude : item.latitude
 					                          , nivel : config.parametrosImportacao.nivelAlagamentoPadrao
 					                          , })
 					.error(function(){
-						;
+						console.log(JSON.stringify(arguments));
 					}).success( function( row, created ){
 						execUpd( item )
 						if (!created) {

@@ -14,13 +14,15 @@ var environments = {
 				             , interval : 1 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
+				             		
 				             		var api = new (require('./api/importador').api)()
 				             		api.importar()
+
 				               	} 
 							  } 
 						   ]
 				,	apiNames : ['ocorrencia']
-				,	db :  { host 		: "179.184.209.219" 
+				,	db :    { host 		: "179.184.209.219" 
 							, user 		: "aqui-alaga-sp"
 							, password 	: "ornitorrinko"
 							, instance	: "aquialaga-sp"
