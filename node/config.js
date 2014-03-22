@@ -11,7 +11,7 @@ var environments = {
 				, 	mongoSessionCollection : 'session'
 				,   parametrosImportacao : { codigoAlagamento : 302, nivelAlagamentoPadrao : 1 }
 				,   jobs : [ { name : 'Obter dados CET'
-				             , interval : 1000 * 60 * 10 // 10 minutos
+				             , interval : 10000 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
 				             		
@@ -21,7 +21,7 @@ var environments = {
 				               	} 
 							  },
 							  { name : 'Lat-Lng'
-				             , interval : 1 * 60 * 10 // 10 minutos
+				             , interval : 100000 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
 				             		

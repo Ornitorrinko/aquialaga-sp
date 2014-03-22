@@ -15,6 +15,7 @@ var CETOcorrencia = function(sequelize, DataTypes){
 	    	, timestamps : true
 	    	, instanceMethods : {
 	    		getEnderecoFormatado : function() {
+	    			 //INT CB EXPR
 	    			return (this.numero ? ',' + this.numero : '' ) + ',SÃO PAULO, SP, BRAZIL'
 				}
 	    	}
