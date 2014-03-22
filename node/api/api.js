@@ -1,6 +1,5 @@
 var path = require('path')
 
-
 function getMethodAsAPI( route, method ){
 	return function( req, res ) {
 			method( req , function( value ){
@@ -19,9 +18,6 @@ function getMethodAsAPI( route, method ){
 
 	}
 }
-
-
-
 
 exports.createRoutes = function ( app , prefix ) {
 	prefix = (prefix || '').trim()
