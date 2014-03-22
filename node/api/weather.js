@@ -1,14 +1,25 @@
 var helpers = require('../helpers/index')
 	, http = helpers.requestUrlReturn
 	, config = helpers.config
+	, YQL = require('yqlp')
 	, url = require('url');
 
 var weather = function (){
 	return {
 		consultar : function(callback) {
-			http(config.apiEndpoints.yahooWeather, function(status, response){
-				callback(status, response);
+
+			YQL.exec("SELECT item.forecast FROM weather.forecast WHERE woeid = @woeid AND u='c'"
+				, {woeid: 202344868}
+				, function(error, response) {
+			    if (error) {
+			        console.log('Ops! Something wrong happened =(:', error);
+			    } else {
+			        var results = response.query.results;
+			        console.log('response=>', response);
+			    }
 			});
+
+			// callback(status, response);
 		}
 	};
 };
