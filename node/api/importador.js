@@ -24,13 +24,9 @@ var Importador = function (){
 		    							  })
 		    }
 		    
-<<<<<<< HEAD
-		    _importando++;
 			
-			sequelize.query( _sql,null , {raw:true}, [config.parametrosImportacao.codigoAlagamento ])
-=======
 			sequelize.query(_sql, null, {raw : true} , [config.parametrosImportacao.codigoAlagamento])
->>>>>>> FETCH_HEAD
+
 			.error(function(){
 		    	_importando--;
 				console.log('errors:', JSON.stringify(arguments))
