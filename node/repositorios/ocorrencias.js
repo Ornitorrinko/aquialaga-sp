@@ -27,6 +27,12 @@ function ocorrencias(){
 
 			Q.all([gettingOcorrenciasDaCET, gettingOcorrenciasDosUsuarios])
 				.spread(function(ocorrenciasDaCET, ocorrenciasDosUsuarios){
+					if(!ocorrenciasDaCET)
+						ocorrenciasDaCET = [];
+
+					if(!ocorrenciasDosUsuarios)
+						ocorrenciasDosUsuarios = [];
+
 					callback(false, {CET: ocorrenciasDaCET
 						, Usuarios: ocorrenciasDosUsuarios
 					});
