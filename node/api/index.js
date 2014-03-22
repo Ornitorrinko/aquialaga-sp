@@ -11,6 +11,7 @@ function getMethodAsAPI( route, method ){
 
 	}
 }
+var config = require('../helpers').config
 
 exports.createRoutes = function ( app , prefix ) {
 	prefix = (prefix || '').trim()

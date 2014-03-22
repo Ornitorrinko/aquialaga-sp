@@ -9,14 +9,17 @@ var environments = {
 
 				,	mongoUrl:  'mongodb://localhost/dev'
 				, 	mongoSessionCollection : 'session'
+				,   parametrosImportacao : { codigoAlagamento : 302, nivelAlagamentoPadrao : 1 }
 				,   jobs : [ { name : 'Sincronizar corridas'
 				             , interval : 1000 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
+				             		var api = new (require('./api/importador').api)()
+				             		api.importar()
 				               	} 
 							  } 
 						   ]
-				,	apiNames : ['apiOcorrencias']
+				,	apiNames : ['ocorrencia']
 				,	db :  { host 		: "179.184.209.219" 
 							, user 		: "aqui-alaga-sp"
 							, password 	: "ornitorrinko"
@@ -42,7 +45,7 @@ var environments = {
 				               	} 
 							  } 
 						   ]
-				,	apiNames : ['apiOcorrencias']
+				,	apiNames : ['ocorrencia']
 				,	db :  { host 		: "179.184.209.219" 
 							, user 		: "aqui-alaga-sp"
 							, password 	: "ornitorrinko"
