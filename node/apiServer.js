@@ -4,7 +4,7 @@ var  express = require('express')
 	;
   
 require('./helpers')
-require('./models')
+
 
 var app = express();
 exports.app = app
@@ -25,6 +25,8 @@ app.configure(function(){
 });
 
 
+app.set('models', require('./models'));
+exports.models = app.get('models')
 
 app.configure('development', function(){
 	app.use(express.logger('dev'))
