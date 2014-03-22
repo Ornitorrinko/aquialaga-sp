@@ -1,0 +1,26 @@
+{
+  "name": "aqui-alaga-sp.com.br",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node apiServer.js"
+  },
+  "dependencies": {
+      "sequelize": "*"
+    , "express": "*"
+    , "mysql": "*"
+    , "date-format-lite"	: "*"
+    , "path": "*"
+    , "stylus": "*"
+    , "ejs": "*"
+    , "xml2js": "*"
+    , "crypto": "*"
+    , "sha1": "*"
+    , "node-uuid": "*"
+    , "underscore": "*"
+    , "requestify": "*"
+    , "moment": "*"
+    , "moment-timezone": "*"
+    , "commander" : "*"
+  }
+}
