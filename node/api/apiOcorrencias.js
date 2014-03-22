@@ -9,8 +9,6 @@ var apiOcorrencias = function (model){
 
 	return {
 		listar : function(callBack) {
-
-
 			ocorrencias.findByAddress()
 		},
 		metodo2 : function( callBack ) {
