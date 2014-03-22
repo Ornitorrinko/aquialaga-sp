@@ -15,14 +15,17 @@ var Importador = function (){
 	return {
 		importar : function() {
 			if (_importando > 0) return;
-			console.log('entrei')
+		    
 		    var execUpd = function( values ){
-		    	sequelize.connection.query( _updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA]
+		    	
+		    	sequelize.query( _updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA]
 		    		                      , function(){
 		    								console.log('que isso ?1:', JSON.stringidfy(arguments))
 		    							  })
 		    }
+		    
 		    _importando++;
+			
 			sequelize.query( _sql,null , {raw:true}, [config.parametrosImportacao.codigoAlagamento ])
 			.error(function(){
 		    	_importando--;
