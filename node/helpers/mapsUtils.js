@@ -1,19 +1,42 @@
+var gm = require('googlemaps');
+
 var Maps = function(){
 
 	this.byAddress = function(fullAddress, callback){
-		var gm = require('googlemaps')
-			, geo = {};
+		var geo = {};
 
 		gm.geocode(fullAdress, function(err2, data){
 			try{
-				geo.latitude = data.results[0].geometry.location.lat;
-				geo.longitude = data.results[0].geometry.location.lng;
+				geo.lat = data.results[0].geometry.location.lat;
+				geo.lng = data.results[0].geometry.location.lng;
 			  	callback(null, geo);
 			}catch(e){
 				geo.errors = ['Endereço informado invalido'];
 				callback(geo, null);
 			};
 		};
+	};
+
+	this.range = function(fullAddress, callback){
+		var self = this
+			_ = require('underscore')
+		    , rangeToFindUnidadesKm = 10, 
+		    . rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111;
+
+		self.byAddress(fullAddress, function(err, geoData){
+			var query = {
+	            lat: {
+	                gte: geoData.lat - rangeToFindUnidadesDegree
+	              , lt:geoData.lat + rangeToFindUnidadesDegree
+	            },
+	            lng:{
+	              gte: geolocation.lng - rangeToFindUnidadesDegree
+	              , lt:geolocation.lng + rangeToFindUnidadesDegree
+	            }
+	        };
+
+	        callback(null, query);
+		});
 	};
 };
 
