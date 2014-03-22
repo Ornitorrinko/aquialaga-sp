@@ -17,7 +17,7 @@ var apiOcorrencia = function (model){
 			ocorrencias
 				.findByGeolocation(self.model.latitude, self.model.longitude
 					, function(err, data){
-
+						console.log('data=>', data);
 					});
 		},
 		reportar : function(callback) {
@@ -39,7 +39,7 @@ var apiOcorrencia = function (model){
 				, longitude: self.model.longitude
 				, nivel: self.model.nivel
 			});
-
+			
 			ocorrencias.salvar(novaOcorrencia
 				, function(err, data){
 					if(err)

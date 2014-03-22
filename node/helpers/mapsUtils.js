@@ -19,9 +19,15 @@ var Maps = function(){
 
 	this.byGeolocation = function(latitude, longitude, callback){
 		var latlng = new google.maps.LatLng(latitude, longitude);
-		
-		geo.geocode({'latlng': latlng}, function(results, status){
 
+		geo.geocode({'latlng': latlng}, function(results, status){
+			if (status == google.maps.GeocoderStatus.OK){
+				console.log('results=>', results);
+				
+		      	callback(null, results);
+			}
+		    else
+		    	callback({error: 'The search failed due to: ' + status},null);
 		});
 	};
 
