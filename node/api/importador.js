@@ -5,6 +5,103 @@ var helpers = require('../helpers')
     , models = require('../models')
 	, config = helpers.config
 	, CETOcorrencia = models.CETOcorrencia
+	;
+
+
+
+var _sql =' SELECT'
+		 +' str_to_date(ocorrencia.CHEGADA, "%d/%m/%Y %H:%i") AS CHEGADA,'
+		 +' ocorrencia.LOCALDAOCORRENCIA  LOCALDAOCORRENCIA,'
+		 +'    ocorrencia.ALTURANUMERICA AS ALTURANUMERICA,'
+		 +'    cetocorrencia.latitude AS latitude,'
+		 +'    cetocorrencia.longitude AS longitude,'
+		 +'    count(0) AS quantidade,'
+		 +'    ocorrencia.CODIGO AS codigo'
+		 +' FROM ocorrencia '
+		 +'   left join CETOcorrencia as cetocorrencia on( cetocorrencia.endereco = ocorrencia.LOCALDAOCORRENCIA '
+		 +'   	                      and ocorrencia.ALTURANUMERICA = cetocorrencia.numero )'
+		 +' where ocorrencia.dataimportacao is null '
+		 +'   and ocorrencia.CODIGO = ' + config.parametrosImportacao.codigoAlagamento
+		 +'    '
+		 +' group by ocorrencia.CHEGADA'
+		 +'         , ocorrencia.LOCALDAOCORRENCIA'
+		 +'         , ocorrencia.ALTURANUMERICA'
+		 +'         , cetocorrencia.latitude'
+		 +'         , cetocorrencia.longitude'
+		 +' limit 10000'
+		 ;
+	
+
+	var _updCMD = "update ocorrencia set dataImportacao = NOW()\n"
+	              +"where dataImportacao is null and LOCALDAOCORRENCIA = :LOCALDAOCORRENCIA\n"
+	              +"and (   (:ALTURANUMERICA is null     and ALTURANUMERICA is :ALTURANUMERICA)\n"
+	              +"	 or (:ALTURANUMERICA is not null and ALTURANUMERICA = :ALTURANUMERICA )\n"
+	              +")"
+
+var _connection = require('../repositorios').createConnection()
+var _importando = false
+var Importador = function (){
+	return {
+		 updateOcorrencia : function( values ) {
+		    _connection.query( _updCMD, values)
+
+		 },
+		 importarOcorrencia : function( i, rows ){
+		 	var self = this
+		 	if (i < rows.length){
+		 		self.importar(i+1, rows)
+		 	}
+
+		 }
+		 ,importar : function() {
+		 	var self = this
+			if (_importando) return;
+			_importando = true;
+		    
+			_connection.query(_sql, function(err, rows) {
+				importarOcorrencia( 0, rows, function(){
+					_importando = false;
+				})
+		    });
+	
+		    /*
+		    _connection.query( _sql, 
+			sequelize.query(_sql, null, {raw : true} , [config.parametrosImportacao.codigoAlagamento])
+			
+			sequelize.query(_sql, null, {raw : true} , [config.parametrosImportacao.codigoAlagamento])
+
+			.error(function(){
+		    	_importando--;
+				console.log('errors:', JSON.stringify(arguments))
+			})
+			.success(function ( items ) {
+		    	_importando--;
+				items.forEach( function ( item ) {
+				})
+			})*/
+		},
+
+		preencherLatLng : function(){
+
+		}
+	}
+
+}	
+	
+
+/*
+
+module.exports.api = Importador
+
+module.exports.apiRoutes = function () {
+	return []
+}()
+
+var helpers = require('../helpers')
+    , mysql  = require('mysql')
+    , models = require('../models')
+	, config = helpers.config
+	, CETOcorrencia = models.CETOcorrencia
 	, sequelize = models.sequelize;
 
 	var _sql =  'select \
@@ -30,7 +127,7 @@ var Importador = function (){
 	return {
 		importar : function() {
 			if (_importando > 0) return;
-		    
+
 		    var execUpd = function( values ){
 
 				var cmd = mysql.format(_updCMD, [ values.LOCALDAOCORRENCIA
@@ -42,8 +139,8 @@ var Importador = function (){
 		    		console.log('***', [],JSON.stringify(arguments));
 		    	} )
 		    }
-		    
-			
+
+
 			sequelize.query(_sql, null, {raw : true} , [config.parametrosImportacao.codigoAlagamento])
 
 			.error(function(){
@@ -82,7 +179,7 @@ var Importador = function (){
 	}
 
 }	
-	
+
 
 
 
@@ -91,8 +188,7 @@ module.exports.api = Importador
 module.exports.apiRoutes = function () {
 	return []
 }()
-
-
+*/
 
 /*connection.query('SELECT * FROM users WHERE id = ?', [userId], function(err, results) {
   // ...

@@ -22,10 +22,10 @@ var environments = {
 							  } 
 						   ]
 				,	apiNames : ['ocorrencia']
-				,	db :    { host 		: "179.184.209.219" 
-							, user 		: "aqui-alaga-sp"
-							, password 	: "ornitorrinko"
-							, instance	: "aquialaga-sp"
+				,	db :    { host 		: "mysql.ornitorrinko.com" 
+							, user 		: "ornitorrinko04"
+							, password 	: "aquialagasp"
+							, instance	: "ornitorrinko04"
 							, port    	: 3306
 							, pool    	: { maxConnections : 15, maxIdleTime: 30}
 							, type    	: "mysql"
@@ -49,10 +49,10 @@ var environments = {
 				, 	mongoSessionCollection : 'session'
 				,   jobs : [ ]
 				,	apiNames : ['ocorrencia']
-				,	db :  { host 		: "179.184.209.219" 
-							, user 		: "aqui-alaga-sp"
-							, password 	: "ornitorrinko"
-							, instance	: "aquialaga-sp"
+				,	db :    { host 		: "mysql.ornitorrinko.com" 
+							, user 		: "ornitorrinko04"
+							, password 	: "aquialagasp"
+							, instance	: "ornitorrinko04"
 							, port    	: 3306
 							, pool    	: { maxConnections : 15, maxIdleTime: 30}
 							, type    	: "mysql"
