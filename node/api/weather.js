@@ -8,7 +8,7 @@ var weather = function (){
 	return {
 		consultar : function(callback) {
 
-			YQL.exec("SELECT item.forecast FROM weather.forecast WHERE woeid = @woeid AND u='c'"
+			YQL.exec("SELECT * FROM weather.forecast WHERE woeid = @woeid AND u='c'"
 				, {woeid: 202344868}
 				, function(error, response) {
 			    if (error) {
