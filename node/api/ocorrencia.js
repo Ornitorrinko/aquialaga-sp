@@ -98,7 +98,7 @@ var apiOcorrencia = function (model){
 
 module.exports.apiRoutes = function () {
 	return [
-		{ httpMethod : 'get', route : '/ocorrencias/:lat/:lng'
+		{ httpMethod:'get', route:'/ocorrencias/:lat/:lng'
 		, func : 
 			function(req, callback) {
 				var	params = req.params
@@ -118,7 +118,7 @@ module.exports.apiRoutes = function () {
 				});
 			}
 		}
-		, { httpMethod : 'post', route : '/ocorrencias'
+		, { httpMethod:'post', route:'/ocorrencias'
 		, func : 
 		    function(req, callback) {
 		    	var model = req.body
@@ -132,7 +132,7 @@ module.exports.apiRoutes = function () {
 		    	});
 		  	}
 		}
-		, { httpMethod : 'get', route : '/get-geolocation'
+		, { httpMethod:'get', route:'/get-geolocation'
 		, func : 
 		    function(req, callback) {
 		    	var parts = url.parse(req.url, true)

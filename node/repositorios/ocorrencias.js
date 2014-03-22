@@ -7,23 +7,22 @@ function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
 
-			var rangeToFindUnidadesKm = 10
-			  , rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111
+			var rangeToFindOcorrenciasKm = 10
+			  , rangeToFindOcorrenciasDegree = rangeToFindOcorrenciasKm/111
 			  , query = {
 			  		where: {
 			            latitude: {
-			                gte: latitude - rangeToFindUnidadesDegree
-			              , lt: latitude + rangeToFindUnidadesDegree
+			                gte: latitude - rangeToFindOcorrenciasDegree
+			              , lt: latitude + rangeToFindOcorrenciasDegree
 			            },
 			            longitude: {
-			              	gte: longitude - rangeToFindUnidadesDegree
-			              , lt: longitude + rangeToFindUnidadesDegree
+			              	gte: longitude - rangeToFindOcorrenciasDegree
+			              , lt: longitude + rangeToFindOcorrenciasDegree
 			            }
 			  		}
 			  	}
 				, gettingOcorrenciasDaCET = CETOcorrencia.find(query)
 				, gettingOcorrenciasDosUsuarios = UsuarioOcorrencia.find(query);
-
 
 			Q.all([gettingOcorrenciasDaCET, gettingOcorrenciasDosUsuarios])
 				.spread(function(ocorrenciasDaCET, ocorrenciasDosUsuarios){
@@ -33,9 +32,7 @@ function ocorrencias(){
 					if(!ocorrenciasDosUsuarios)
 						ocorrenciasDosUsuarios = [];
 
-					callback(false, {CET: ocorrenciasDaCET
-						, Usuarios: ocorrenciasDosUsuarios
-					});
+					callback(null, [ocorrenciasDaCET, ocorrenciasDosUsuarios]);
 				})
 				.fail(function(error){
 					callback(true, error);
