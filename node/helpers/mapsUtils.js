@@ -18,7 +18,7 @@ var Maps = function(){
 	};
 
 	this.byGeolocation = function(latitude, longitutde, callback){
-				
+		
 	};
 
 	this.range = function(fullAddress, callback){

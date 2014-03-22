@@ -3,17 +3,18 @@ var CETOcorrencia = require('./CETOcorrencia')
 
 function ocorrencias(){
 	return{
-		findByAddress: function(address){
+		findByGeolocation: function(latitude, longitude, callback){
 			var db = require('./index').sequelize
-			, query = 'select id, endereco, numero, latitude, longitude, quantidade\
-					 * from CETOcorrencia \
-					 where endereco = ?';
-					
+				, query = 'select id, endereco, numero, latitude, longitude, quantidade\
+					from CETOcorrencia
+					where 	latitude = ?
+					and 	longitude = ?';
+
 			db
-			.query(query
+			.query(query)
 				, null
 				, {raw: true}
-				, [address])
+				, [latitude, longitude])
 			.success(function(ocorrenciasDaCET){
 				callback(false, ocorrenciasDaCET);
 			})
