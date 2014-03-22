@@ -1,6 +1,6 @@
 var helper = require('../helpers/index')
 	, maps = helper.maps
-	, usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
+	, usuarioOcorrencia = require('../repositorio/usuarioOcorrencias')
 	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia')
 	, ocorrencias = require('../repositorio/ocorrencias');
 
@@ -35,7 +35,10 @@ var apiOcorrencias = function (model){
 			if(error.length > 0)
 				callback(error, {});
 
-			
+			var novaOcorrencia = usuarioOcorrencia.build({
+				
+			});
+
 		}
 	};
 };

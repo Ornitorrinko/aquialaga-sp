@@ -22,6 +22,16 @@ function ocorrencias(){
 				callback(true, error);
 			});
 		}
+		, salvar: function(ocorrencia){
+			ocorrencia
+				.save()
+				.success(function(novaOcorrencia){
+					callback(null, novaOcorrencia);
+				})
+				.error(function(error){
+					callback(error, null);
+				});
+		}
 	}
 };
 
