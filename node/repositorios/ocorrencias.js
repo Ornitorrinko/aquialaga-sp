@@ -1,17 +1,18 @@
-var CETOcorrencia = require('./CETOcorrencia')
-	, usuarioOcorrencia = require('./usuarioOcorrencia');
+var models = require('../models')
+    , CETOcorrencia = models.CETOcorrencia
+	, usuarioOcorrencia = models.usuarioOcorrencia
 
 function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
-			var db = require('./index').sequelize
+			var db = models.sequelize
 				, query = 'select id, endereco, numero, latitude, longitude, quantidade\
-					from CETOcorrencia
-					where 	latitude = ?
+					from CETOcorrencia\
+					where 	latitude = ?\
 					and 	longitude = ?';
 
 			db
-			.query(query)
+			.query(query
 				, null
 				, {raw: true}
 				, [latitude, longitude])

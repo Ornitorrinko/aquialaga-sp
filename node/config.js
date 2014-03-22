@@ -19,7 +19,7 @@ var environments = {
 				               	} 
 							  } 
 						   ]
-				,	apiNames : ['apiOcorrencias']
+				,	apiNames : ['ocorrencia']
 				,	db :  { host 		: "179.184.209.219" 
 							, user 		: "aqui-alaga-sp"
 							, password 	: "ornitorrinko"
@@ -45,7 +45,7 @@ var environments = {
 				               	} 
 							  } 
 						   ]
-				,	apiNames : ['apiOcorrencias']
+				,	apiNames : ['ocorrencia']
 				,	db :  { host 		: "179.184.209.219" 
 							, user 		: "aqui-alaga-sp"
 							, password 	: "ornitorrinko"

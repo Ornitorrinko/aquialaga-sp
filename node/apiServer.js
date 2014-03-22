@@ -4,7 +4,7 @@ var  express = require('express')
 	;
   
 require('./helpers')
-require('./repositorios/index')
+require('./models')
 
 var app = express();
 exports.app = app
@@ -34,7 +34,7 @@ app.configure('production', function(){
 	app.use(express.logger('production'))
 })
 
-require('./api/api.js').createRoutes( app )
+require('./api').createRoutes( app )
 
 app.get('/v1/ping/:me', function(req, res){
 	res.json( { echo : req.params.me } )

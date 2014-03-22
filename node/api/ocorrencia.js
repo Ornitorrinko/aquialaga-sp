@@ -1,7 +1,7 @@
 var helpers = require('../helpers/index')
 	, maps = helpers.maps
-	, usuarioOcorrencia = require('../models/usuarioOcorrencia')
-	, ocorrencias = require('../repositorio/ocorrencia');
+	, usuarioOcorrencia = require('../models').usuarioOcorrencia
+	, ocorrencias = require('../repositorios/ocorrencias');
 
 var apiOcorrencia = function (model){	
 	

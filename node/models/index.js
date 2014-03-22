@@ -19,7 +19,7 @@ var sequelize = new Sequelize	(	config.db.instance
 var models = [ 'usuarioOcorrencia' , 'CETOcorrencia']
 
 models.forEach(function(model) {
-  module.exports[model] = sequelize.import(__dirname + '/../model/' + model);
+  module.exports[model] = sequelize.import(__dirname + '/' + model);
 });
 
 

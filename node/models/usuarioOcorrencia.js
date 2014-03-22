@@ -14,4 +14,4 @@ var usuarioOcorrencia = function(	sequelize, DataTypes ){
 	)
 }
 
-module.exports = usuarioOcorrencias;
+module.exports = usuarioOcorrencia;

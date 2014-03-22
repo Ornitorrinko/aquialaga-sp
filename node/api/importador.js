@@ -1,6 +1,6 @@
 var helpers = require('../helpers/index')
-	, CETOcorrencia = require('../models/CETOcorrencia')
-	, sequelize = require('../repositorios').sequelize
+	, CETOcorrencia = require('../models').CETOcorrencia
+	, sequelize = require('../models').sequelize
 	, config = helpers.config
 
 	var sql = "SELECT str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i') data\
