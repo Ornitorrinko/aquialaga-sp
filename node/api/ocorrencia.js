@@ -1,10 +1,9 @@
-var helper = require('../helpers/index')
-	, maps = helper.maps
-	, usuarioOcorrencia = require('../repositorio/usuarioOcorrencias')
-	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia')
-	, ocorrencias = require('../repositorio/ocorrencias');
+var helpers = require('../helpers/index')
+	, maps = helpers.maps
+	, usuarioOcorrencia = require('../models/usuarioOcorrencia')
+	, ocorrencias = require('../repositorio/ocorrencia');
 
-var apiOcorrencias = function (model){	
+var apiOcorrencia = function (model){	
 	
 	var self = this;
 
@@ -55,7 +54,7 @@ module.exports.apiRoutes = function () {
 						latitude: latitude
 						, longitude: longitude
 					}
-					, api = new apiOcorrencias(model);
+					, api = new apiOcorrencia(model);
 
 				api.listar(function(error, data) {
 					if (error)
@@ -69,7 +68,7 @@ module.exports.apiRoutes = function () {
 		, func : 
 		    function(req, callback) {
 		    	var model = req.body
-		    		, api = new apiOcorrencias(model);
+		    		, api = new apiOcorrencia(model);
 
 		    	api.reportar(function(err, data){
 		    		if(err)

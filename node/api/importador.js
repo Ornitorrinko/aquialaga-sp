@@ -1,28 +1,27 @@
 var helpers = require('../helpers/index')
-	, usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
-	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia')
-	, sequelize = require('../repositorio').sequelize
+	, CETOcorrencia = require('../models/CETOcorrencia')
+	, sequelize = require('../repositorios').sequelize
 	, config = helpers.config
 
-	var sql = "SELECT str_to_date(ocorrencias.chegada, '%d/%m/%Y %H:%i') data\
-						,ocorrencias.LOCALDAOCORRENCIA\
-						,ocorrencias.ALTURANUMERICA\
-						,CETOcorrencias.latitude\
-						,CETOcorrencias.longitude\
+	var sql = "SELECT str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i') data\
+						,ocorrencia.LOCALDAOCORRENCIA\
+						,ocorrencia.ALTURANUMERICA\
+						,CETOcorrencia.latitude\
+						,CETOcorrencia.longitude\
 						,count(*) quantidade\
-				FROM ocorrencias\
-				 left join CETOcorrencia as CETOcorrencias  on (CETOcorrencias.endereco = ocorrencias.LOCALDAOCORRENCIA \
-				  and ocorrencias.ALTURANUMERICA = CETOcorrencias.numero)
+				FROM ocorrencia\
+				 left join CETOcorrencia as CETOcorrencia  on (CETOcorrencia.endereco = ocorrencia.LOCALDAOCORRENCIA \
+				  and ocorrencia.ALTURANUMERICA = CETOcorrencia.numero)
 				where dataImportacao is null\
-					  and ocorrencias.codigo = "+ config.parametrosImportacao.nivelAlagamentoPadrao + "\
-				group by str_to_date(ocorrencias.chegada, '%d/%m/%Y %H:%i')\
-				         ,ocorrencias.LOCALDAOCORRENCIA\
-				         ,ocorrencias.ALTURANUMERICA\
+					  and ocorrencia.codigo = "+ config.parametrosImportacao.nivelAlagamentoPadrao + "\
+				group by str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i')\
+				         ,ocorrencia.LOCALDAOCORRENCIA\
+				         ,ocorrencia.ALTURANUMERICA\
 						  ,CETOcorrencias.latitude\
 						  ,CETOcorrencias.longitude\
 				limit 10";
 
-	var updCMD = "update ocorrencias set\
+	var updCMD = "update ocorrencia set\
 	                 dataImportacao = NOW()\
 	                 where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
 
@@ -36,7 +35,7 @@ var helpers = require('../helpers/index')
 		var _
 		items.forEach( function ( item ) {
 		
-			CETOcorrenciasDb.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
+			CETOcorrencia.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
 				                          , numero : items.ALTURANUMERICA
 				                          , quantidade : items.quantidade
 				                          , dataOcorrencia : items.data

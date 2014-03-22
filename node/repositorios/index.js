@@ -16,10 +16,10 @@ var sequelize = new Sequelize	(	config.db.instance
 
 
 
-var models = [ 'usuarioOcorrencias' , 'CETOcorrencia']
+var models = [ 'usuarioOcorrencia' , 'CETOcorrencia']
 
 models.forEach(function(model) {
-  module.exports[model] = sequelize.import(__dirname + '/' + model);
+  module.exports[model] = sequelize.import(__dirname + '/../model/' + model);
 });
 
 

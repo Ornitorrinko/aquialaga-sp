@@ -4,7 +4,7 @@ var  express = require('express')
 	;
   
 require('./helpers')
-require('./repositorio/index')
+require('./repositorios/index')
 
 var app = express();
 exports.app = app
