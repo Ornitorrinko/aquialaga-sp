@@ -10,11 +10,11 @@ function ocorrencias(){
 					from CETOcorrencia\
 					where 	latitude = ?\
 					and 	longitude = ?';
-
+					
 			db
 			.query(query
 				, null
-				, {raw: true}
+				, {raw: false}
 				, [latitude, longitude])
 			.success(function(ocorrenciasDaCET){
 				callback(false, ocorrenciasDaCET);
