@@ -1,0 +1,66 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/home/vinone/local/bin/npm',
+1 verbose cli   '-g',
+1 verbose cli   'install',
+1 verbose cli   'sequelise-mysql' ]
+2 info using npm@1.3.9
+3 info using node@v0.10.17
+4 verbose cache add [ 'sequelise-mysql', null ]
+5 verbose cache add name=undefined spec="sequelise-mysql" args=["sequelise-mysql",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'sequelise-mysql',
+6 verbose parsed url   path: 'sequelise-mysql',
+6 verbose parsed url   href: 'sequelise-mysql' }
+7 silly lockFile f765895a-sequelise-mysql sequelise-mysql
+8 verbose lock sequelise-mysql /home/vinone/.npm/f765895a-sequelise-mysql.lock
+9 silly lockFile f765895a-sequelise-mysql sequelise-mysql
+10 silly lockFile f765895a-sequelise-mysql sequelise-mysql
+11 verbose addNamed [ 'sequelise-mysql', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile b73692b8-sequelise-mysql sequelise-mysql@
+14 verbose lock sequelise-mysql@ /home/vinone/.npm/b73692b8-sequelise-mysql.lock
+15 silly addNameRange { name: 'sequelise-mysql', range: '*', hasData: false }
+16 verbose url raw sequelise-mysql
+17 verbose url resolving [ 'https://registry.npmjs.org/', './sequelise-mysql' ]
+18 verbose url resolved https://registry.npmjs.org/sequelise-mysql
+19 info trying registry request attempt 1 at 11:32:22
+20 http GET https://registry.npmjs.org/sequelise-mysql
+21 http 404 https://registry.npmjs.org/sequelise-mysql
+22 silly registry.get cb [ 404,
+22 silly registry.get   { date: 'Sat, 22 Mar 2014 14:32:23 GMT',
+22 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
+22 silly registry.get     'content-type': 'application/json',
+22 silly registry.get     via: '1.1 varnish',
+22 silly registry.get     'cache-control': 'max-age=0',
+22 silly registry.get     'content-length': '52',
+22 silly registry.get     'accept-ranges': 'bytes',
+22 silly registry.get     age: '0',
+22 silly registry.get     'x-served-by': 'cache-v42-ASH, cache-at50-ATL',
+22 silly registry.get     'x-cache': 'MISS, MISS',
+22 silly registry.get     'x-cache-hits': '0, 0',
+22 silly registry.get     'x-timer': 'S1395498743.310600042,VS0,VS-105,VE2,VE120',
+22 silly registry.get     'keep-alive': 'timeout=10, max=50',
+22 silly registry.get     connection: 'Keep-Alive' } ]
+23 silly lockFile b73692b8-sequelise-mysql sequelise-mysql@
+24 silly lockFile b73692b8-sequelise-mysql sequelise-mysql@
+25 error 404 'sequelise-mysql' is not in the npm registry.
+25 error 404 You should bug the author to publish it
+25 error 404
+25 error 404 Note that you can also install from a
+25 error 404 tarball, folder, or http url, or git url.
+26 error System Linux 3.2.0-60-generic
+27 error command "node" "/home/vinone/local/bin/npm" "-g" "install" "sequelise-mysql"
+28 error cwd /home/vinone/projects/aquialaga-sp/node
+29 error node -v v0.10.17
+30 error npm -v 1.3.9
+31 error code E404
+32 verbose exit [ 1, true ]

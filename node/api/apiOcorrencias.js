@@ -1,17 +1,22 @@
 var helper = require('../helpers/index')
+	, maps = helper.maps
 	, usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
-	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia');
+	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia')
+	, ocorrencias = require('../repositorio/ocorrencias');
 
-var apiOcorrencias = function (model) {	
+var apiOcorrencias = function (model){	
+	this.model = model;
+
 	return {
 		listar : function(callBack) {
-			CETOcorrenciasDb.all()
+
+
+			ocorrencias.findByAddress()
 		},
 		metodo2 : function( callBack ) {
 		}		
-	}
-}
-
+	};
+};
 
 module.exports.apiRoutes = function () {
 	return [
@@ -21,40 +26,18 @@ module.exports.apiRoutes = function () {
 				var	params = req.params
 					, latitude = params.latitude
 					, longitude = params.longitude
-					, api = new apiOcorrencias();
-
-				api.listar()
-
-				api.criar( model, function( error , corridasResponse ) {
-					var result = {}
-					
-					if (error) {
-						console.log('***error:',error)
-						var response = { result : "0" }
-						if (typeof error == "boolean") {
-							if (corridasResponse.msg && corridasResponse.msg.messages )
-								response.message = corridasResponse.msg.messages;
-						} else {
-
-							if (error.msg )
-								response.message = error.msg.messages;
-						}
-
-						result = response
-					} else {
-						result =  corridasResponse
+					, model = {
+						latitude: latitude
+						, longitude: longitude
 					}
+					, api = new apiOcorrencias(model);
 
-					var i = utils.formaters.tryInt(result.id_corrida ? result.id_corrida : 0)
-					if (i > 0 ) 
-				  		api.corridaStatusPorId ( i , function( corridaDb ){
-				  			result.corrida = utils.formaters.corridaSituacao( corridaDb ).corrida
-				  			callback (  result )
-
-				  		} )
-				  	else
-				  		callback( result )
-				})
+				api.listar(function(error, data) {
+					if (error)
+						callback({result : '0', message : data});
+					else
+						callback({data: data});
+				});
 			}
 		}, 
 				

@@ -13,15 +13,19 @@ var Maps = function(){
 			}catch(e){
 				geo.errors = ['Endereço informado invalido'];
 				callback(geo, null);
-			};
-		};
+			}
+		});
+	};
+
+	this.byGeolocation = function(latitude, longitutde, callback){
+		
 	};
 
 	this.range = function(fullAddress, callback){
 		var self = this
 			_ = require('underscore')
-		    , rangeToFindUnidadesKm = 10, 
-		    . rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111;
+		    , rangeToFindUnidadesKm = 10
+		    , rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111;
 
 		self.byAddress(fullAddress, function(err, geoData){
 			var query = {
