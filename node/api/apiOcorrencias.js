@@ -11,6 +11,55 @@ var gm = require('googlemaps');
       };
 
 
+
+var _ = require('underscore'),
+    gm = require('googlemaps');
+    rangeToFindUnidadesKm = 10, 
+    rangeToFindUnidadesDegree = rangeToFindUnidadesKm/111,
+    gm.geocode(params.search, function(err, data){
+        try{
+          var geolocation = data.results[0].geometry.location;
+          var query = {
+            lat: {
+                gte: geolocation.lat - rangeToFindUnidadesDegree
+              , lt:geolocation.lat + rangeToFindUnidadesDegree
+            },
+            lng:{
+              gte: geolocation.lng - rangeToFindUnidadesDegree
+              , lt:geolocation.lng + rangeToFindUnidadesDegree
+            }
+          };
+
+          var limit = 10,
+              skip  = limit * params.page || 0;
+
+          geddy.model.Endereco.all(query, {skip: skip, limit: limit}, function(err, enderecos){
+            if(err) throw err;
+            var unidades = [],
+                idsUnidades = _.pluck(enderecos, 'unidadeId');
+
+            geddy.model.Unidade._buildNotArchivedUnidadesWithQuadras(idsUnidades, 0, unidades, function(unidades){
+              params.searchGeo = geolocation;
+              self.respond({
+                params: params
+              , unidades: unidades
+              }, {
+                template: '/unidades/list'
+              });
+            });
+          });
+      }
+      catch(e){
+        self.respond({
+          params: params
+        , unidades: null
+        }, {
+          template: '/unidades/list'
+        });
+      }
+    }, 'false');
+
+
 var apiOcorrencias = function ( model ) {
 	return {
 		metodo1 : function( callBack ) {
