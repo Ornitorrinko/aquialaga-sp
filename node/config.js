@@ -28,6 +28,10 @@ var environments = {
 							, pool    	: { maxConnections : 15, maxIdleTime: 30}
 							, type    	: "mysql"
 							}
+				, 	keys: {
+						googleMaps: ""
+						, yahooWeather: ""
+					}
 				}
 ,	production	: {	session : {secret:'br.com.aquialagasp.1234567890QWERTY'}
 				,	socketPortAPI : 3001

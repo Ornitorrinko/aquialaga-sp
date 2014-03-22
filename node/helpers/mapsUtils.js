@@ -17,8 +17,12 @@ var Maps = function(){
 		});
 	};
 
-	this.byGeolocation = function(latitude, longitutde, callback){
+	this.byGeolocation = function(latitude, longitude, callback){
+		var latlng = new google.maps.LatLng(latitude, longitude);
 		
+		geo.geocode({'latlng': latlng}, function(results, status){
+
+		});
 	};
 
 	this.range = function(fullAddress, callback){

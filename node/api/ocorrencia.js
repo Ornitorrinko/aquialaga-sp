@@ -28,16 +28,25 @@ var apiOcorrencia = function (model){
 			if(!self.model.longitude)
 				error.push('Wrong call, provide longitude');
 
-			if(!self.model.level)
+			if(!self.model.nivel)
 				error.push('Wrong call, provide level');
 
 			if(error.length > 0)
 				callback(error, {});
 
 			var novaOcorrencia = usuarioOcorrencia.build({
-				
+				latitude: self.model.latitude
+				, longitude: self.model.longitude
+				, nivel: self.model.nivel
 			});
 
+			ocorrencias.salvar(novaOcorrencia
+				, function(err, data){
+					if(err)
+						callback(err, {});
+					else
+						callback(null,data);
+				});
 		}
 	};
 };
