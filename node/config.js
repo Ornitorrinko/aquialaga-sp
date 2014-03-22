@@ -31,7 +31,7 @@ var environments = {
 				               	} 
 							  } 
 						   ]
-				,	apiNames : ['ocorrencia']
+				,	apiNames : ['ocorrencia', 'weather']
 				,	db :    { host 		: "mysql.ornitorrinko.com" 
 							, user 		: "ornitorrinko04"
 							, password 	: "aquialagasp"
@@ -46,6 +46,9 @@ var environments = {
 				, 	keys: {
 						googleMaps: ""
 						, yahooWeather: ""
+					}
+				, 	apiEndpoints: {
+						yahooWeather: "http://query.yahooapis.com/v1/public/yql?q=select%20item.forecast%20from%20weather.forecast%20where%20woeid=%202344868&format=json"
 					}
 				}
 ,	production	: {	session : {secret:'br.com.aquialagasp.1234567890QWERTY'}

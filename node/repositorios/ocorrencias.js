@@ -1,12 +1,11 @@
 var models = require('../models')
 	, Q = require('q')
     , CETOcorrencia = models.CETOcorrencia
-	, UsuarioOcorrencia = models.usuarioOcorrencia
+	, UsuarioOcorrencia = models.usuarioOcorrencia;
 
 function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
-
 			var rangeToFindOcorrenciasKm = 10
 			  , rangeToFindOcorrenciasDegree = rangeToFindOcorrenciasKm/111
 			  , query = {
