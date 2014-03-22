@@ -1,11 +1,11 @@
 var helper = require('../helpers/index')
-var usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
+	, usuarioOcorrenciasDb = require('../repositorio/usuarioOcorrencias')
+	, CETOcorrenciasDb = require('../repositorio/CETOcorrencia');
 
-
-
-var apiOcorrencias = function ( model ) {
+var apiOcorrencias = function (model) {
 	return {
-		metodo1 : function( callBack ) {
+		listar : function(callBack) {
+			CETOcorrenciasDb.all()
 		},
 		metodo2 : function( callBack ) {
 		}			
@@ -15,13 +15,16 @@ var apiOcorrencias = function ( model ) {
 
 module.exports.apiRoutes = function () {
 	return [
-		{ httpMethod : 'post', route : '/v1/corrida/criar'
+		{ httpMethod : 'get', route : '/ocorrencias/:lat/:long'
 		, func : 
 			function( req, callback ) {
-				var	model = req.body
-				model.usuarioId = model.usuarioId || model.usuario
+				var	params = req.params
+					, latitude = params.latitude
+					, longitude = params.longitude
+					, api = new apiOcorrencias();
 
-				var api = new apiCorrida()
+				api.listar()
+
 				api.criar( model, function( error , corridasResponse ) {
 					var result = {}
 					
