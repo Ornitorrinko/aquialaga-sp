@@ -1,5 +1,4 @@
 var CETOcorrencia = function(sequelize, DataTypes){
-
 	return sequelize.define('CETOcorrencia', {
 		  	id  : 		{type: DataTypes.INTEGER, allowNull : false }
 			, endereco:	{type: DataTypes.STRING, allowNull : false }
