@@ -1,9 +1,10 @@
-var helpers = require('../helpers/index')
-	, CETOcorrencia = require('../models').CETOcorrencia
-	, sequelize = require('../models').sequelize
+var helpers = require('../helpers')
+    , models = require('../models')
 	, config = helpers.config
+	, CETOcorrencia = models.CETOcorrencia
+	, sequelize = models.sequelize
 
-	var sql = "SELECT str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i') data\
+	var _sql = "SELECT str_to_date(ocorrencia.chegada, '%d/%m/%Y %H:%i') data\
 						,ocorrencia.LOCALDAOCORRENCIA\
 						,ocorrencia.ALTURANUMERICA\
 						,CETOcorrencia.latitude\
@@ -21,40 +22,56 @@ var helpers = require('../helpers/index')
 						  ,CETOcorrencias.longitude\
 				limit 10";
 
-	var updCMD = "update ocorrencia set\
-	                 dataImportacao = NOW()\
-	                 where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
+	var _updCMD = "update ocorrencia set\
+	                     dataImportacao = NOW()\
+	              where dataImportacao is null and LOCALDAOCORRENCIA = ? and  ALTURANUMERICA = ?"
 
-    var execUpd = function( values ){
-    	sequelize.connection.query(updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA], function(){
-    		console.log('1:', JSON.stringidfy(arguments))
-    	})
-    }
+var importador = function (){
+	return {
+		importar : function() {
+		    var execUpd = function( values ){
+		    	sequelize.connection.query( _updCMD, [values.LOCALDAOCORRENCIA, values.ALTURANUMERICA]
+		    		                      , function(){
+		    								console.log('que isso ?1:', JSON.stringidfy(arguments))
+		    							  })
+		    }
 
-	sequelize.query( sql, null, { raw : true } , [] ).success(function ( items ) {
-		var _
-		items.forEach( function ( item ) {
-		
-			CETOcorrencia.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
-				                          , numero : items.ALTURANUMERICA
-				                          , quantidade : items.quantidade
-				                          , dataOcorrencia : items.data
-				                          , longitude : item.longitude
-				                          , latitude : item.latitude
-				                          , nivel : config.parametrosImportacao.nivelAlagamentoPadrao
-				                          , })
-			.error(function(){
-				;
-			}).success( function( row, created ){
-				execUpd( item )
-				if (!created) {
-					row.updateAttributes( { quantidade : row.quantidade + item.quantidade } )
+			sequelize.query( _sql, null, { raw : true } , [] ).success(function ( items ) {
+				
+				items.forEach( function ( item ) {
+				
+					CETOcorrencia.findOrCreate({ endereco : items.LOCALDAOCORRENCIA
+					                          , numero : items.ALTURANUMERICA
+					                          , quantidade : items.quantidade
+					                          , dataOcorrencia : items.data
+					                          , longitude : item.longitude
+					                          , latitude : item.latitude
+					                          , nivel : config.parametrosImportacao.nivelAlagamentoPadrao
+					                          , })
 					.error(function(){
-
+						;
+					}).success( function( row, created ){
+						execUpd( item )
+						if (!created) {
+							row.updateAttributes( { quantidade : row.quantidade + item.quantidade } )
+							.error(function(){
+								console.log('2:', JSON.stringify(arguments))
+							})
+						}
 					})
-				}
+				})
 			})
+		},
+
+		preencherLatLng : function(){
+
 		}
+	}
+
+}	
+	
+
+
 
 module.exports.api = function(){
 
