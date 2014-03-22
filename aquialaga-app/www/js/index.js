@@ -17,25 +17,25 @@ var app = {
         };
 
         if (app.isPhoneGap) {
-            alert('watch');
+            console.log('watch');
             navigator.geolocation.watchPosition(
                   app.onGetPositionSuccess
                 , app.onGetPossitionError
                 , options
             );
         } else if ( navigator.geolocation ) {
-            alert('getPos');
+            console.log('getPos');
             navigator.geolocation.getCurrentPosition( app.onGetPositionSuccess, app.onGetPossitionError );
         }
     },
     onGetPositionSuccess: function(position){
-            alert('agora foi');
+            console.log('agora foi');
             app.position = position;
             app.map.loadScript();
             app.main.bindEvents();
     },
     onGetPossitionError: function(errorFlag, a, b){
-         alert('falhou '+ JSON.stringify(errorFlag));
+         console.log('falhou '+ JSON.stringify(errorFlag));
          if (errorFlag) {
             var content = 'Erro: O serviço de geolocalização falhou.';
           } else {

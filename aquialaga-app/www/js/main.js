@@ -1,27 +1,47 @@
 var app = app ? app : {};
 
 app.main = {
+	host: 'http://localhost:3001/',
+	getOcorrencias: function(){
+		var urlGetOcorrencias = app.main.host+'ocorrencias/'+app.position.coords.latitude+'/'+app.position.coords.longitude;
+		
+		var getOcorrecias = $.get(urlGetOcorrencias);
+
+		getOcorrecias.done(function(data){
+			var a = data;
+		});
+
+		getOcorrecias.fail(function(err){
+			var a = err;
+		});
+	},
+	postOcorrencia: function(){
+		
+		var url	= '/ocorrencias/'+app.position.coords.latitude+'/'+app.position.coords.longitude;
+
+		var postOcorrencia = $.post(url);
+		
+		sendButton.button('loading');
+
+		postOcorrencia.done(function(data){
+
+		});
+		postOcorrencia.fail(function(data){
+
+		});
+		postOcorrencia.always(function(){
+			sendButton.button('reset');
+		});
+	},
 	bindEvents: function(){
-		var sendButton = $('#btn-send'),
-			url	= '/ocorrencias/'+app.position.coords.latitude+'/'+app.position.coords.longitude;
+		app.main.getOcorrencias();
 		
+		var sendButton = $('#btn-send');
+		sendButton.unbind('click');
 
-		sendButton.removeAttr('disabled');
-		
 		sendButton.click(function(){
-			var get = $.get(url);
-			
-			sendButton.button('loading');
-
-			get.done(function(data){
-
-			});
-			get.fail(function(data){
-
-			});
-			get.always(function(){
-				sendButton.button('reset');
-			});
+			sendButton.removeAttr('disabled');
+			app.main.postOcorrencia();
 		});
 	}
 }

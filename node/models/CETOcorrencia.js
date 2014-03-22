@@ -13,6 +13,11 @@ var CETOcorrencia = function(sequelize, DataTypes){
 		{
 			tableName : 'CETOcorrencia'
 	    	, timestamps : true
+	    	, instanceMethods : {
+	    		getEnderecoFormatado : function() {
+	    			return (this.numero ? ',' + this.numero : '' ) + ',SÃO PAULO, SP, BRAZIL'
+				}
+	    	}
 		}
 	);
 };

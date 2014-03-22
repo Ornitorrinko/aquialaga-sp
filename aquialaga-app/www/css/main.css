@@ -1,4 +1,58 @@
-html,body : {  height: 100%}
+html,body : {  
+	height: 99.9%;
+	overflow: hidden;
+}
+
+#header{
+	background: url("../img/header.png");
+    background-size: cover;
+	background-position: center center;
+    height: 60px;
+}
+#footer{
+	background: url("../img/footer.png");
+	background-size: cover;
+	background-position: center center;
+	height: 60px;	
+    text-align: center;
+}
+#img-btn-reportar{
+	background: url("../img/botao_reportar.png");
+	background-size: cover;
+	background-position: center center;
+    display: block;
+    height: 90px;
+}
+.app{
+	background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+}
+
+#footer.ui-fixed-hidden {
+	position: fixed;
+	bottom: -1px !important;
+    padding-bottom: 1px !important;
+}
+#header.ui-fixed-hidden{
+	padding-top: 1px !important;
+    top: -1px !important;
+}
+#link-report{
+	top: -30px;
+	display: block;
+    height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 90px;
+    background-color: transparent;
+    border: none;
+    color: #333333;
+    text-shadow: none;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 100px;
+    margin: 0 auto;
+}
 
 .map{
 	width:100%;

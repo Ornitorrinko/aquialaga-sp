@@ -9,16 +9,15 @@
         
         <link rel="stylesheet" href="assets/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.css" />
         <link rel="stylesheet" href="css/main.css" />
- 
     </head>
     <body>
         <div data-role="page">
             <div data-role="header" id="header" data-position="fixed" style="overflow:hidden;">
-            <h1>Aqui alaga</h1>
                 
             </div><!-- /header -->
-            <div role="main" data-position="fixed" id="content" class="ui-content">
+            <div role="main" data-position="" id="content" class="">
                 <div  id="map_canvas" class="map"></div>
+                <div class="app" style="height:200px; width:100%"></div>
             </div>
             <div data-role="popup" id="popupReport" class="ui-content">
                 <a data-inline="true" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="ui-btn ui-shadow ui-btn-corner-all ui-mini ui-btn-inline ui-btn-icon-top ui-btn-up-c">
@@ -41,7 +40,7 @@
                 </a>
             </div>
             <div data-role="footer" data-position="fixed" id="footer" class="footer">
-                <a type="button" href="#popupReport" data-transition="slideup" data-position-to="#footer" data-rel="popup" data-loading-text="Enviando...">Alagoooouuu!</a>
+                <a id="link-report" href="#popupReport" data-transition="slideup" data-position-to="#footer" data-rel="popup" class="" data-loading-text="Enviando..."><span id="img-btn-reportar"></span></a>
             </div>
         </div>
         <!-- ## start of lib script -->
