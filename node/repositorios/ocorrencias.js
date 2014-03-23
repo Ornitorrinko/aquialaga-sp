@@ -7,15 +7,15 @@ var models = require('../models')
 	, _sql =  '  select sum(qtdCET) qtdCET, sum(qtdUSER) qtdUsuario,latitude, longitude'
 			+ '  from('
 			+ '  select sum(quantidade) qtdCET, 0 qtdUSER,latitude, longitude'
-			+ '   from CETOcorrencia where'
-			+ '     (latitude between :latMin and :latMin)'
- 			+ ' and (longitude between lngMin and :lngMax)'
+			+ '   from CETOcorrencia'
+			+ ' where (latitude between :latMin and :latMax)'
+ 			+ ' and (longitude between :lngMin and :lngMax)'
 			+ ' group by latitude, longitude'
 			+ ' union'
 			+ ' select 0, count(1), latitude, longitude'
-			+ '  from usuarioOcorrencia where'
-			+ '     (latitude between :latMin and :latMin)'
- 			+ ' and (longitude between lngMin and :lngMax)'
+			+ '  from usuarioOcorrencia'
+		 	+ ' where (latitude  between :latMin and :latMax)'
+ 		 	+ ' and (longitude between :lngMin and :lngMax)'
 			+ ' group by latitude, longitude ) tb'
 			+ ' group by latitude, longitude'
 			;
@@ -27,11 +27,12 @@ function ocorrencias(){
 			longitude = parseFloat(longitude)
 
 			var   where = { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
-			            , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
-			            }
+			              , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
+			              }
 			var _connection = require('../repositorios').createConnection()
-
-		    _connection.query( _updCMD, where )
+		    _connection.query( _sql, where , function(err, rows){
+		    	callback(err, rows)
+		    })
 
 		}
 		, salvar: function(ocorrencia, callback){
