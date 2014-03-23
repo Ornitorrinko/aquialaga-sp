@@ -96,14 +96,33 @@ app.main = {
 
 		app.main.getPrevisaoDoTempo();
 		
-		var sendButton = $('.btn-send');
+		var sendButton = $('.btn-send'),
+			btnPopup   = $('#btn-popup'),
+			btnPosition = $('#btn-current-pos');
+
 		sendButton.removeAttr('disabled');
+		btnPopup.removeAttr('disabled');
+		btnPosition.removeAttr('disabled');
 		
 		sendButton.unbind('click');
+		btnPopup.unbind('click');
+		btnPosition.unbind('click');
+
+		btnPosition.click(function(){
+			app.map.plotMyPosition();
+		});
+
+		btnPopup.click(function(){
+			var target = $($(this).data('target'));
+			if(target.is(':visible'))
+				target.hide();
+			else
+				target.show();
+		});
 
 		sendButton.click(function(){
-			var popup = $("#popupReport");
-			popup.popup('close');
+			var popup = $("#popupReport-popup");
+			popup.hide();
 			app.main.postOcorrencia($(this));
 		});
 	}

@@ -1,12 +1,12 @@
 function alertify(title, msg, position, wait){
-	var body = $('body');
+	var main = $('#main');
 	var id = Math.floor((Math.random()*1000)+1);
 	var html = '<div id="'+id+'" class="alert '+position+'">\
                 <div class="alert-title">'+title+'</div>\
                 <div class="alert-body">'+msg+'</div>\
             </div>'
 
-    body.append(html);
+    main.append(html);
 	
 	setTimeout(function(){
 		$('#'+id).remove();
