@@ -24,7 +24,7 @@ var weather = function (){
 
 module.exports.apiRoutes = function () {
 	return [
-		{ httpMethod:'get', route:'/tempo/previsao'
+		{ httpMethod:'get', route:'/saopedro/previsao'
 		, func : 
 			function(req, callback) {
 				var api = new weather();
