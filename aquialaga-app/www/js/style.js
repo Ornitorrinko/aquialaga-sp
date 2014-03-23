@@ -1,9 +1,6 @@
 $(document).ready(function(){
-	var content = $('#content'),
-		header	= $('#header'),
-		footer	= $('#footer');
-	
+	var content = $('#main');
 
-	var height = ($(window).height() - header.height() - footer.height() - 10);
+	var height = ($(window).height());
 	content.height(height);
 });
