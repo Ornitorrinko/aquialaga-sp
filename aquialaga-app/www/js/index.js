@@ -15,8 +15,8 @@ var app = {
     },
     receivedEvent: function(id) {
         var options = { 
-            enableHighAccuracy: true,
-            maximumAge: 30000,
+            /*enableHighAccuracy: true,
+            maximumAge: 30000,*/
             timeout: 270000 
         };
         if (app.isPhoneGap()) {
