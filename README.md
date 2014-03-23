@@ -1,15 +1,16 @@
-aquialaga-sp
+# aquialaga-sp
 alaga?
 ============
 
 Projeto Aqui Alaga? => HACKATONA CET SP
 ++++
 
-API
+## API
 
-- {host}/saopedro/previsao (ex:http://aqui-alaga-sp.ornitorrinko.com/saopedro/previsao)
+- *{host}/saopedro/previsao* (ex:http://aqui-alaga-sp.ornitorrinko.com/saopedro/previsao)
 	informações sobre a previsão do tempo no momento em são paulo
 	* retorno
+
 ```javascript
 	data: {
 		code: "11" -- > maior que 11 indica chuva
@@ -21,10 +22,12 @@ API
 	}
 ```
 
-- {host}/ocorrencias/:lat/:lng (ex:http://aqui-alaga-sp.herokuapp.com/ocorrencias/-23.5505/-46.6333)
+- *{host}/ocorrencias/:lat/:lng* (ex:http://aqui-alaga-sp.herokuapp.com/ocorrencias/-23.5505/-46.6333)
 	Buscar todas ocorrencias em um raio de até 5km da coordenada passada na url
-	:lat -> valor da latitude	
-	:lng -> valor da longitude
+	
+      - **`:lat`** -> valor da latitude
+      - **`:lng`** -> valor da longitude
+
 ```javascript
 	"data": [
     {
