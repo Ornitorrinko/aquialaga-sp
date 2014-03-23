@@ -13,6 +13,18 @@ function alertify(title, msg, position, wait){
 	},wait||4000);
 }
 
+Array.prototype.contains = function(item) {
+  	var i = this.length;
+
+	while (i--) {
+		if (this[i] === item) {
+		  return true;
+		}
+	}
+
+  	return false;
+};
+
 $.fn.button = function(str) {
 	var current = $(this);
 	if(str == 'loading'){

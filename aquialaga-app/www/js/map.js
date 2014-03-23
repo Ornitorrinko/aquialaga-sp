@@ -1,4 +1,4 @@
-var map;
+var map, geocoder;
 var app = app ? app : {};
 app.map = {
 	scriptLoaded: false,
@@ -24,26 +24,36 @@ app.map = {
 	plotMyPosition: function(){
 		var pos = new google.maps.LatLng(app.myPosition.coords.latitude,
 				app.myPosition.coords.longitude);
-			
-			var image = new google.maps.MarkerImage(
-					'img/bluedot_retina.png',
-				null, // size
-				null, // origin
-				new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
-				new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
-			);
-			// then create the new marker
-			myMarker = new google.maps.Marker({
-				flat: true,
-				icon: image,
-				map: map,
-				optimized: false,
-				position: pos,
-				title: 'I might be here',
-				visible: true
-			});
+		geocoder = new google.maps.Geocoder();
 
-			map.setCenter(pos);
+		geocoder.geocode({'latLng': pos}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        if (results[1]) {
+	        	app.myAddress = results[0].formatted_address;
+	        	var image = new google.maps.MarkerImage(
+						'img/bluedot_retina.png',
+					null, 
+					null, 
+					new google.maps.Point( 8, 8 ), 
+					new google.maps.Size( 17, 17 )
+				);
+				// then create the new marker
+				myMarker = new google.maps.Marker({
+					flat: true,
+					icon: image,
+					map: map,
+					optimized: false,
+					position: pos,
+					title: 'I might be here',
+					visible: true
+				});
+
+				map.setCenter(pos);
+	        }
+	      } else {
+	        alert("Geocoder failed due to: " + status);
+	    	}
+		});
 	},
 	initialize: function(){
 		app.map.scriptLoaded = true;
@@ -54,7 +64,7 @@ app.map = {
 		map = new google.maps.Map(document.getElementById('map_canvas'),
 			mapOptions);
 	    
-	    google.maps.event.addListener(map,'dragend', function(event) {
+	    google.maps.event.addListener(map,'center_changed', function(event) {
 			var geo = map.getCenter()
 			var position = {
 				coords:{

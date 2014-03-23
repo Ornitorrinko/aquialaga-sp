@@ -1,10 +1,10 @@
 var app = app ? app : {};
 
 app.main = {
-	url: app.host+'ocorrencias/',
+	urlOcorrencias: app.host+'ocorrencias/',
 	ocorrencias: {},
 	getOcorrencias: function(position){
-		var urlGetOcorrencias = app.main.url+position.coords.latitude+'/'+position.coords.longitude;
+		var urlGetOcorrencias = app.main.urlOcorrencias+position.coords.latitude+'/'+position.coords.longitude;
 		
 		var getOcorrecias = $.get(urlGetOcorrencias);
 
@@ -30,7 +30,7 @@ app.main = {
 			,	nivel: level
 		}
 
-		var postOcorrencia = $.post(app.main.url, obj);
+		var postOcorrencia = $.post(app.main.urlOcorrencias, obj);
 		
 		postOcorrencia.done(function(data){
 			alertify('Obrigado!', 'Ocorrencia efetuada com sucesso', 'bottom');
@@ -43,8 +43,21 @@ app.main = {
 			button.button('reset');
 		});
 	},
+	getPrevisaoDoTempo: function(){
+		$.ajax(app.host + 'saopedro/previsao')
+			.done(function(previsao){
+				if(previsao && app.rain.contains(parseInt(previsao.data.code)))
+					app.isGoingToRain = 'Sim'
+				else
+					app.isGoingToRain = 'Não'
+			}).fail(function(err){
+				console.log('getPrevisaoDoTempo =>',err);
+			});
+	},
 	bindEvents: function(){
 		app.main.getOcorrencias(app.myPosition);
+
+		app.main.getPrevisaoDoTempo();
 		
 		var sendButton = $('.btn-send');
 		sendButton.removeAttr('disabled');
