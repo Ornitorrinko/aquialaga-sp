@@ -6,7 +6,7 @@ html,body : {
 #header{
     padding-top:2px;
 	background: rgba(51,51,51,0.8);
-    height: 75px;
+    height: 45px;
 }
 #footer{
 	
@@ -152,8 +152,8 @@ body {
 
 .img_location {
     background: url('../img/define_location.svg') no-repeat 1px;
-	background-size: 35px 35px;
-    background-position:center; 
+	background-size: 30px 30px;
+
     height: 100%;
 	width: 100%;
 	display: block;
