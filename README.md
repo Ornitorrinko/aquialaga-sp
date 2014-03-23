@@ -5,12 +5,12 @@ alaga?
 Projeto Aqui Alaga? => HACKATONA CET SP
 ++++
 
-## API
+## HTTP API 
 
-- *{host}/saopedro/previsao* (ex:http://aqui-alaga-sp.ornitorrinko.com/saopedro/previsao)
-	informações sobre a previsão do tempo no momento em são paulo
-	* retorno
-
+### informações sobre a previsão do tempo no momento em são paulo
+- **`GET`** *{host}/saopedro/previsao* (ex:http://aqui-alaga-sp.ornitorrinko.com/saopedro/previsao)
+	
+#### retorno
 ```javascript
 	data: {
 		code: "11" -- > maior que 11 indica chuva
@@ -21,13 +21,21 @@ Projeto Aqui Alaga? => HACKATONA CET SP
 		text: "Light Rain" --> descritivo da temperatura
 	}
 ```
+### reportar pontos de algamentos
+- **`POST`** *{host}/ocorrencias* (ex:http://aqui-alaga-sp.herokuapp.com/ocorrencias)
+      - **`latitude`**
+      - **`longitude`**
+      - **`nivel`** -> indicar numa escala de 1 até 3 o nível do alagamento
 
-- *{host}/ocorrencias/:lat/:lng* (ex:http://aqui-alaga-sp.herokuapp.com/ocorrencias/-23.5505/-46.6333)
-	Buscar todas ocorrencias em um raio de até 5km da coordenada passada na url
-	
+
+
+### Buscar todas ocorrencias em um raio de até 5km da coordenada passada na url
+- **`GET`** *{host}/ocorrencias/:lat/:lng* (ex:http://aqui-alaga-sp.herokuapp.com/ocorrencias/-23.5505/-46.6333)
+
       - **`:lat`** -> valor da latitude
       - **`:lng`** -> valor da longitude
 
+#### retorno
 ```javascript
 	"data": [
     {
