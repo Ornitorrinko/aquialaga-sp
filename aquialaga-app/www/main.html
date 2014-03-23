@@ -7,46 +7,61 @@
         <meta name="viewport" content="width=device-width">
         <title>Aqui alaga</title>
         
-        <link rel="stylesheet" href="assets/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.css" />
+        <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/Lato-Light.css" />
+        <link rel="stylesheet" href="css/Lato-Regular.css" />
     </head>
     <body>
-        <div data-role="page">
-            <div data-role="header" id="header" data-position="fixed" style="overflow:hidden;">
-                
-            </div><!-- /header -->
-            <div role="main" data-position="" id="content" class="">
-                <div  id="map_canvas" class="map"></div>
-                <div class="app" style="height:200px; width:100%"></div>
+        <div id="header" class="navbar navbar-default navbar-fixed-top" role="navigation" style="width:100%">
+            <div class="container">
+                <div class="navbar-header text-center">
+                    <img src="./img/logo.svg" height="70px" alt="">  
+                </div>
             </div>
 
-            <div data-role="popup" id="popupReport" class="ui-content">
-                <a data-inline="true" data-level="1" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="btn-send">
-                    <span class="ui-btn-inner ui-btn-corner-all">
-                        <span class="ui-btn-text">Leve</span>
-                        <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
-                    </span>
-                </a>
-                <a data-inline="true" data-level="2" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="btn-send">
-                    <span class="ui-btn-inner ui-btn-corner-all">
-                        <span class="ui-btn-text">Médio</span>
-                        <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
-                    </span>
-                </a>
-                <a data-inline="true" data-level="3" data-mini="true" data-iconpos="top" data-icon="delete" data-role="button" href="javascript:;" data-corners="true" data-shadow="true" data-iconshadow="true" data-wrapperels="span" data-theme="c" class="btn-send">
-                    <span class="ui-btn-inner ui-btn-corner-all">
-                        <span class="ui-btn-text">Foda</span>
-                        <span class="ui-icon ui-icon-delete ui-icon-shadow">&nbsp;</span>
-                    </span>
-                </a>
+        </div>
+    
+
+    <!-- Begin page content --> 
+    <div role="main" data-position="" id="main" class="main">
+        <div  id="map_canvas" class="map"></div>
+        <div class="endereco">
+                <p>RUA CONEGO EUGÊNIO LEITE, 623</p>
+                <p>PINHEIROS</p>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 ocorrencias_cet">
+                <div class="row text-center">
+                    <p class="numero_ocorrencias">10</p>
+                </div>
+                <div class="row text-center">
+                    <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
+                </div>
+
             </div>
-            <div data-role="footer" data-position="fixed" id="footer" class="footer">
-                <a id="link-report" href="#popupReport" data-transition="slideup" data-position-to="#footer" data-rel="popup" class="" data-loading-text="Enviando..."><span id="img-btn-reportar"></span></a>
+            <div class="col-xs-6 ocorrencias_user">
+                <div class="row text-center">
+                    <p class="numero_ocorrencias">10</p>
+                </div>
+                <div class="row text-center">
+                    <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
+                </div>
             </div>
         </div>
+        <div class="previsao">
+                <div class="col-xs-6 previsao_label text-center">
+                    <p class="">PREVISAO DE CHUVA:</p>
+                </div>
+                <div class="col-xs-6 previsao_info text-center">
+                    <p class="">SIM</p>
+               </div>
+        </div>
+    </div>
+     
         <!-- ## start of lib script -->
         <script src="js/jquery.min.js"></script>
-        <script src="assets/jquery.mobile-1.4.2/jquery.mobile-1.4.2.min.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/util.js"></script>
