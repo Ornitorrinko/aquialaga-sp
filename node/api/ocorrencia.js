@@ -102,7 +102,7 @@ module.exports.apiRoutes = function () {
 		, func : 
 			function(req, callback) {
 				var	params = req.params
-					, latitude = params.lat
+					, latitude = params.lat 
 					, longitude = params.lng
 					, model = {
 						latitude: latitude
