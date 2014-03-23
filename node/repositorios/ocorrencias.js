@@ -19,6 +19,7 @@ var models = require('../models')
 			+ ' group by latitude, longitude ) tb'
 			+ ' group by latitude, longitude'
 			;
+	var _connection = require('../repositorios').createConnection()
 
 function ocorrencias(){
 	return{
@@ -29,8 +30,8 @@ function ocorrencias(){
 			var   where = { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
 			              , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
 			              }
-			var _connection = require('../repositorios').createConnection()
 		    _connection.query( _sql, where , function(err, rows){
+		    	_connection = null;
 		    	callback(err, rows)
 		    })
 

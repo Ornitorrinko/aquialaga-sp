@@ -1,6 +1,4 @@
 var mysql = require('mysql');
-
-
 var config = require('../config')
 
 module.exports.createConnection = function () {
@@ -23,4 +21,6 @@ module.exports.createConnection = function () {
 
 	return connection
 }
+
+
 
