@@ -22,7 +22,7 @@ var environments = {
 				               	} 
 							  },
 							  { name : 'Lat-Lng'
-				             , interval : 100000 * 60 * 10 // 10 minutos
+				             , interval : 1* 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
 				             		
