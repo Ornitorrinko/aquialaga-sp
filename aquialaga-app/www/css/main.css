@@ -120,6 +120,16 @@ body {
 	bottom: 10px;
 }
 
+.botao_report {
+     background:rgb(255,255,255);  
+     position:relative;
+     bottom: 40px;
+     height: 32px;
+     width: 32px;
+     
+}
+
+
 .alert{
 	margin: 0 auto;
 	left: 0;
