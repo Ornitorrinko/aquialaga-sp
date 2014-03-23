@@ -12,10 +12,10 @@ var weather = function (){
 			YQL.exec("SELECT * FROM weather.forecast WHERE woeid = @woeid AND u='c'"
 				, {woeid: 26798778}
 				, function(error, response) {
-			    if (error)
-			    	callback(true, error);
-			    else {
-			        callback(null, response.query.results.channel.item.forecast[0]);
+				    if (error)
+				    	callback(true, error);
+				    else {
+				        callback(null, response.query.results.channel.item.forecast[0]);
 			    }
 			});
 		}
