@@ -19,22 +19,23 @@ var models = require('../models')
 			+ ' group by latitude, longitude ) tb'
 			+ ' group by latitude, longitude'
 			;
-	var _connection = require('../repositorios').createConnection()
 
 function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
-			latitude = parseFloat(latitude)
-			longitude = parseFloat(longitude)
+			
+			 require('../repositorios').createConnectionEx(function(_connection){
+				latitude = parseFloat(latitude)
+				longitude = parseFloat(longitude)
 
-			var   where = { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
-			              , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
-			              }
-		    _connection.query( _sql, where , function(err, rows){
-		    	_connection = null;
-		    	callback(err, rows)
-		    })
-
+				var   where = { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
+				              , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
+				              }
+			    _connection.query( _sql, where , function(err, rows){
+			    	_connection.release();
+			    	callback(err, rows)
+			    })
+			 })
 		}
 		, salvar: function(ocorrencia, callback){
 			ocorrencia

@@ -36,12 +36,12 @@ var _sql =' SELECT'
 	              +"	 or (:ALTURANUMERICA is not null and ALTURANUMERICA = :ALTURANUMERICA )\n"
 	              +")"
 	
-	var _connection = require('../repositorios').createConnection()
 
 	
 
-	var _importando = []
+var _importando = []
 var Importador = function (){
+	var _connection;
 	return {
 		 updateOcorrencia : function( item, cb ) {
 			if (item.ALTURANUMERICA && typeof item.ALTURANUMERICA != 'string')
@@ -87,14 +87,19 @@ var Importador = function (){
 		 }
 		 ,importar : function() {
 		 	var self = this
-			if (_importando['importar']) return;
-			_importando['importar'] = true;
-		    
-			_connection.query(_sql, function(err, rows) {
-				self.importarOcorrencia( 0, rows, function(){
-					_importando['importar'] = false;
-				})
-		    });
+			 require('../repositorios').createConnectionEx(function(connection){		
+			 	_connection = connection
+				if (_importando['importar']) return;
+				_importando['importar'] = true;
+			    
+				_connection.query(_sql, function(err, rows) {
+					self.importarOcorrencia( 0, rows, function(){
+						_connection.release();
+						_importando['importar'] = false;
+					})
+			    });
+
+			 });
 	
 		},
 

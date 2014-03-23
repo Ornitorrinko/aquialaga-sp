@@ -82,6 +82,9 @@ var environments = {
 							, port    	: 3306
 							, pool    	: { maxConnections : 15, maxIdleTime: 30}
 							, type    	: "mysql"
+							, logger    : function(){
+
+							  }
 							}
 				}
 }
