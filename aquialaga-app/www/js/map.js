@@ -10,7 +10,6 @@ app.map = {
 		if(app.map.scriptLoaded)
 			return;
 		app.map.scriptLoaded = true;
-		//alert('loadScript');
 		var script = document.createElement('script');
 		script.type = 'text/javascript';
 		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlSgCtcNCTcjr2TS8ZUcjxlRCXpxsyME&v=3.exp&sensor=true&' +
@@ -18,24 +17,56 @@ app.map = {
 		document.body.appendChild(script);
 	},
 	plotMarker: function(lat, lng, type){
+		var imageCET = new google.maps.MarkerImage(
+				'img/cone.png',
+				null, 
+				null, 
+				new google.maps.Point( 8, 8 ), 
+				new google.maps.Size( 20, 34 )
+			);
+		var imageUser = new google.maps.MarkerImage(
+				'img/user_pin.png',
+				null, 
+				null, 
+				new google.maps.Point( 8, 8 ), 
+				new google.maps.Size( 20, 23 )
+			);
 		var position = new google.maps.LatLng(lat, lng)
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map
-        });
+        if(type == 'CET'){
+	        var marker = new google.maps.Marker({
+	            flat: true,
+				icon: imageCET,
+				map: map,
+				optimized: false,
+				title: 'CET',
+				visible: true,
+	            position: position,
+	            map: map,
+	            zIndex: 1
+	        });
+    	}else{
+    		var marker = new google.maps.Marker({
+	            flat: true,
+				icon: imageUser,
+				map: map,
+				optimized: false,
+				title: 'CET',
+				visible: true,
+	            position: position,
+	            map: map,
+	            zIndex: 1
+	        });
+    	}
 	},
 	plotMarkers: function(){
-		//alert('plotMarkers');
 		for (var i = 0; i < app.main.ocorrencias.length; i++) {
 	        app.map.plotMarker(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude, app.main.ocorrencias[i].qtdCET > 0 ? 'CET' : 'user');
 	    }
 	},
 	plotMyPosition: function(){
-		//alert('plotMyPosition');
 		var pos = new google.maps.LatLng(app.myPosition.coords.latitude,
 				app.myPosition.coords.longitude);
 		geocoder = new google.maps.Geocoder();
-		//alert('pos'+ JSON.stringify(pos));
 		geocoder.geocode({'latLng': pos}, function(results, status) {
 		 if (status == google.maps.GeocoderStatus.OK) {
 	        if (results[1]) {
@@ -60,19 +91,18 @@ app.map = {
 					optimized: false,
 					position: pos,
 					title: 'I might be here',
-					visible: true
+					visible: true,
+					zIndex: 2
 				});
 
-				//alert('imprimir mapa' + pos);
 				map.setCenter(pos);
 	        }
 	      } else {
-	        alert("Geocoder failed due to: " + status);
+	      	alertify('Oops, ocrreu um erro', status, 'bottom');
 	    	}
 		});
 	},
 	initialize: function(){
-		//alert('initialize');
 		
 		map = new google.maps.Map(document.getElementById('map_canvas'),
 			app.map.mapOptions);

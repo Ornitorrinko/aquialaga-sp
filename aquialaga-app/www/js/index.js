@@ -15,30 +15,27 @@ var app = {
     },
     receivedEvent: function(id) {
         var options = { 
-            /*enableHighAccuracy: true,
-            maximumAge: 30000,*/
+            enableHighAccuracy: true,
+            maximumAge: 30000,
             timeout: 270000 
         };
         if (app.isPhoneGap()) {
-            //alert('watch');
             navigator.geolocation.watchPosition(
                   app.onGetPositionSuccess
                 , app.onGetPossitionError
                 , options
             );
         }else if ( navigator.geolocation ) {
-            //alert('not watch');
             navigator.geolocation.getCurrentPosition( app.onGetPositionSuccess, app.onGetPossitionError );
         }
     },
     onGetPositionSuccess: function(position){
-            //alert('agora foi');
             app.myPosition = position;
             app.main.bindEvents();
     },
     defaultMap: function(){
         errorFlag = app.errorFlag;
-        alert('falhou '+ JSON.stringify(errorFlag));
+        alertify('Oops, ocrreu um erro', JSON.stringify(errorFlag), 'bottom');
          if (errorFlag) {
             var content = 'Erro: O serviço de geolocalização falhou.';
           } else {
