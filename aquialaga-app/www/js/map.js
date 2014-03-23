@@ -29,7 +29,10 @@ app.map = {
 		geocoder.geocode({'latLng': pos}, function(results, status) {
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        if (results[1]) {
-	        	app.myAddress = results[0].formatted_address;
+	        	app.myAddress = results[0].address_components[1].long_name + ', ' + 
+	        					results[0].address_components[0].long_name + ' - ' +
+	        					results[0].address_components[2].long_name + ' - ' +
+	        					results[0].address_components[3].long_name;
 	        	var image = new google.maps.MarkerImage(
 						'img/bluedot_retina.png',
 					null, 

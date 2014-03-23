@@ -53,10 +53,7 @@ body {
     font-family: 'Lato';
     font-weight:300;
     padding-top:15px;
-}
-
-.endereco p {
-    font-size: 12pt;
+    font-size: 15pt;
     line-height:25px;
     color:#333333;
 }
