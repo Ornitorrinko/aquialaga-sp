@@ -152,7 +152,8 @@ body {
 
 .img_location {
     background: url('../img/define_location.svg') no-repeat 1px;
-	background-size: 35px 53px;
+	background-size: 35px 35px;
+    background-position:center; 
     height: 100%;
 	width: 100%;
 	display: block;
