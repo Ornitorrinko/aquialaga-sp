@@ -1,32 +1,41 @@
-var map;
+var map, geocoder;
 var app = app ? app : {};
 app.map = {
-	loadScript: function(){
+	scriptLoaded: false,
+	loadScript: function(ocorrencias){
 		var script = document.createElement('script');
 		script.type = 'text/javascript';
 		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlSgCtcNCTcjr2TS8ZUcjxlRCXpxsyME&v=3.exp&sensor=true&' +
 		  'callback=app.map.initialize';
 		document.body.appendChild(script);
 	},
-	initialize: function(){
-		var mapOptions = {
-			zoom: 17,
-			disableDefaultUI: true
-		};
-		map = new google.maps.Map(document.getElementById('map_canvas'),
-			mapOptions);
+	plotMarker: function(lat, lng){
+		var position = new google.maps.LatLng(lat, lng)
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map
+        });
+	},
+	plotMarkers: function(){
+		for (var i = 0; i < app.main.ocorrencias.length; i++) {
+	        app.map.plotMarker(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude);
+	    }
+	},
+	plotMyPosition: function(){
+		var pos = new google.maps.LatLng(app.myPosition.coords.latitude,
+				app.myPosition.coords.longitude);
+		geocoder = new google.maps.Geocoder();
 
-		// Try HTML5 geolocation
-		if(navigator.geolocation) {
-				var pos = new google.maps.LatLng(app.position.coords.latitude,
-					app.position.coords.longitude);
-				
-				var image = new google.maps.MarkerImage(
+		geocoder.geocode({'latLng': pos}, function(results, status) {
+	      if (status == google.maps.GeocoderStatus.OK) {
+	        if (results[1]) {
+	        	app.myAddress = results[0].formatted_address;
+	        	var image = new google.maps.MarkerImage(
 						'img/bluedot_retina.png',
-					null, // size
-					null, // origin
-					new google.maps.Point( 8, 8 ), // anchor (move to center of marker)
-					new google.maps.Size( 17, 17 ) // scaled size (required for Retina display icon)
+					null, 
+					null, 
+					new google.maps.Point( 8, 8 ), 
+					new google.maps.Size( 17, 17 )
 				);
 				// then create the new marker
 				myMarker = new google.maps.Marker({
@@ -40,8 +49,36 @@ app.map = {
 				});
 
 				map.setCenter(pos);
+	        }
+	      } else {
+	        alert("Geocoder failed due to: " + status);
+	    	}
+		});
+	},
+	initialize: function(){
+		app.map.scriptLoaded = true;
+		var mapOptions = {
+			zoom: 17,
+			disableDefaultUI: true
+		};
+		map = new google.maps.Map(document.getElementById('map_canvas'),
+			mapOptions);
+	    
+	    google.maps.event.addListener(map,'center_changed', function(event) {
+			var geo = map.getCenter()
+			var position = {
+				coords:{
+					latitude: geo.lat(),
+					longitude: geo.lng()
+				}
+			}
+			app.main.getOcorrencias(position);
+		});
+
+		if(navigator.geolocation) {
+	    	app.map.plotMarkers();
+			app.map.plotMyPosition();		
 		} else {
-			// Browser doesn't support Geolocation
 			handleNoGeolocation(false);
 		}
 	},

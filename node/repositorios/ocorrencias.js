@@ -1,42 +1,39 @@
 var models = require('../models')
+	, rangeToFindOcorrenciasKm = 10
+	, rangeToFindOcorrenciasDegree = rangeToFindOcorrenciasKm/111
 	, Q = require('q')
     , CETOcorrencia = models.CETOcorrencia
-	, UsuarioOcorrencia = models.usuarioOcorrencia;
+	, UsuarioOcorrencia = models.usuarioOcorrencia
+	, _sql =  '  select sum(qtdCET) qtdCET, sum(qtdUSER) qtdUsuario,latitude, longitude'
+			+ '  from('
+			+ '  select sum(quantidade) qtdCET, 0 qtdUSER,latitude, longitude'
+			+ '   from CETOcorrencia'
+			+ ' where (latitude between :latMin and :latMax)'
+ 			+ ' and (longitude between :lngMin and :lngMax)'
+			+ ' group by latitude, longitude'
+			+ ' union'
+			+ ' select 0, count(1), latitude, longitude'
+			+ '  from usuarioOcorrencia'
+		 	+ ' where (latitude  between :latMin and :latMax)'
+ 		 	+ ' and (longitude between :lngMin and :lngMax)'
+			+ ' group by latitude, longitude ) tb'
+			+ ' group by latitude, longitude'
+			;
 
 function ocorrencias(){
 	return{
 		findByGeolocation: function(latitude, longitude, callback){
-			var rangeToFindOcorrenciasKm = 10
-			  , rangeToFindOcorrenciasDegree = rangeToFindOcorrenciasKm/111
-			  , query = {
-			  		where: {
-			            latitude: {
-			                gte: latitude - rangeToFindOcorrenciasDegree
-			              , lt: latitude + rangeToFindOcorrenciasDegree
-			            },
-			            longitude: {
-			              	gte: longitude - rangeToFindOcorrenciasDegree
-			              , lt: longitude + rangeToFindOcorrenciasDegree
-			            }
-			  		}
-			  	}
-				, gettingOcorrenciasDaCET = CETOcorrencia.find(query)
-				, gettingOcorrenciasDosUsuarios = UsuarioOcorrencia.find(query);
+			latitude = parseFloat(latitude)
+			longitude = parseFloat(longitude)
 
-			Q.all([gettingOcorrenciasDaCET, gettingOcorrenciasDosUsuarios])
-				.spread(function(ocorrenciasDaCET, ocorrenciasDosUsuarios){
-					if(!ocorrenciasDaCET)
-						ocorrenciasDaCET = [];
+			var   where = { latMin : latitude - rangeToFindOcorrenciasDegree, latMax : latitude + rangeToFindOcorrenciasDegree
+			              , lngMin : longitude - rangeToFindOcorrenciasDegree , lngMax :longitude + rangeToFindOcorrenciasDegree 
+			              }
+			var _connection = require('../repositorios').createConnection()
+		    _connection.query( _sql, where , function(err, rows){
+		    	callback(err, rows)
+		    })
 
-					if(!ocorrenciasDosUsuarios)
-						ocorrenciasDosUsuarios = [];
-
-					callback(null, [ocorrenciasDaCET, ocorrenciasDosUsuarios]);
-				})
-				.fail(function(error){
-					callback(true, error);
-				})
-				.done();
 		}
 		, salvar: function(ocorrencia, callback){
 			ocorrencia

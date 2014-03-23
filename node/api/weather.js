@@ -1,13 +1,22 @@
 var helpers = require('../helpers/index')
 	, http = helpers.requestUrlReturn
 	, config = helpers.config
+	, YQL = require('yqlp')
 	, url = require('url');
 
 var weather = function (){
+	var self = this;
+
 	return {
 		consultar : function(callback) {
-			http(config.apiEndpoints.yahooWeather, function(status, response){
-				callback(status, response);
+			YQL.exec("SELECT * FROM weather.forecast WHERE woeid = @woeid AND u='c'"
+				, {woeid: 26798778}
+				, function(error, response) {
+			    if (error)
+			    	callback(true, error);
+			    else {
+			        callback(null, response.query.results.channel.item.forecast[0]);
+			    }
 			});
 		}
 	};
@@ -15,7 +24,7 @@ var weather = function (){
 
 module.exports.apiRoutes = function () {
 	return [
-		{ httpMethod:'get', route:'/tempo/previsao'
+		{ httpMethod:'get', route:'/saopedro/previsao'
 		, func : 
 			function(req, callback) {
 				var api = new weather();

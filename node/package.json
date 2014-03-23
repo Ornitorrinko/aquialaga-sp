@@ -25,5 +25,6 @@
     , "commander" : "*"
     , "googlemaps" :"*"
     , "q": "*"
+    , "yqlp": "*"
   }
 }

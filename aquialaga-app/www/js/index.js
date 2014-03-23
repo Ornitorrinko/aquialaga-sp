@@ -1,5 +1,9 @@
 var app = {
-    position: {},
+    myPosition: {},
+    myAddress: '',
+    isGoingToRain: '',
+    rain: [0,1,2,3,4,8,9,10,11,12,18,23,35,37,38,39,40,45,46,47],
+    host: 'http://179.184.209.215:3001/',
     initialize: function() {
         this.bindEvents();
     },
@@ -30,8 +34,7 @@ var app = {
     },
     onGetPositionSuccess: function(position){
             console.log('agora foi');
-            app.position = position;
-            app.map.loadScript();
+            app.myPosition = position;
             app.main.bindEvents();
     },
     onGetPossitionError: function(errorFlag, a, b){

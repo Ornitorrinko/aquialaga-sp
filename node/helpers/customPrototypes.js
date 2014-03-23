@@ -26,6 +26,18 @@ String.prototype.fillWithZero = function (qty) {
     return str;
 };
 
+Array.prototype.contains = function(item) {
+  	var i = this.length;
+
+	while (i--) {
+		if (this[i] === item) {
+		  return true;
+		}
+	}
+
+  	return false;
+};
+
 function format(string, object) {
 	return string.replace(/{([^{}]*)}/g, function(match, group_match) {
 		
