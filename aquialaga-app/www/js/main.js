@@ -34,8 +34,6 @@ app.main = {
 		});
 	},
 	postOcorrencia: function(button){
-		button.button('loading');
-
 		var level = button.data('level');
 		var obj = {
 				latitude: app.myPosition.coords.latitude
@@ -51,9 +49,6 @@ app.main = {
 		});
 		postOcorrencia.fail(function(data){
 			alertify('Oops!', 'Ocorreu um erro', 'bottom');
-		});
-		postOcorrencia.always(function(){
-			button.button('reset');
 		});
 	},
 	getPrevisaoDoTempo: function(){
@@ -98,7 +93,9 @@ app.main = {
 		
 		var sendButton = $('.btn-send'),
 			btnPopup   = $('#btn-popup'),
-			btnPosition = $('#btn-current-pos');
+			btnPosition = $('#btn-current-pos'),
+			btnClosePoppup = $('#close-popup'),
+			popup = $('#popupReport-popup');
 
 		sendButton.removeAttr('disabled');
 		btnPopup.removeAttr('disabled');
@@ -107,6 +104,11 @@ app.main = {
 		sendButton.unbind('click');
 		btnPopup.unbind('click');
 		btnPosition.unbind('click');
+		btnClosePoppup.unbind('click');
+
+		btnClosePoppup.click(function(){
+			popup.hide();
+		});		
 
 		btnPosition.click(function(){
 			app.map.plotMyPosition();
