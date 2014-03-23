@@ -22,11 +22,24 @@
 
         </div>
     
-
     <!-- Begin page content --> 
     <div role="main" data-position="" id="main" class="main">
-        <div  id="map_canvas" class="map"></div>
+        <div id="popupReport-popup" style="display:none">
+            <p>
+              <button type="button" data-level="1" class="btn btn-default btn-lg btn-send">Leve</button>
+              <button type="button" data-level="2" class="btn btn-default btn-lg btn-send">Foda</button>
+            </p>
+        </div>
+        <button type="button" class="botao_report left btn btn-default" id="btn-current-pos" style="display:none">
+            <span class="send-img"></span>
+        </button>
+        <button type="button" class="botao_report right btn btn-default" data-target="#popupReport-popup" disabled id="btn-popup" style="display:none">
+            <span class="send-img"></span>
+        </button>
+        <div  id="map_canvas" class="map">
 
+        </div>
+    </div>
         <div id="footer">
             <div class="endereco" id="endereco">
             </div>
@@ -57,11 +70,7 @@
                    </div>
                 </div>
             </div> 
-        </div>
-        <div class="botao_report">
-            <img src="img/megafone2.svg">
-        </div>
-     </div>
+        </div> 
      
         <!-- ## start of lib script -->
         <script src="js/jquery.min.js"></script>

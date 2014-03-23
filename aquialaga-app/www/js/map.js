@@ -35,7 +35,7 @@ app.map = {
 		var pos = new google.maps.LatLng(app.myPosition.coords.latitude,
 				app.myPosition.coords.longitude);
 		geocoder = new google.maps.Geocoder();
-		alert('pos'+ JSON.stringify(pos));
+		//alert('pos'+ JSON.stringify(pos));
 		geocoder.geocode({'latLng': pos}, function(results, status) {
 		 if (status == google.maps.GeocoderStatus.OK) {
 	        if (results[1]) {
@@ -63,7 +63,7 @@ app.map = {
 					visible: true
 				});
 
-				alert('imprimir mapa' + pos);
+				//alert('imprimir mapa' + pos);
 				map.setCenter(pos);
 	        }
 	      } else {

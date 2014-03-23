@@ -20,14 +20,14 @@ var app = {
             timeout: 270000 
         };
         if (app.isPhoneGap()) {
-            alert('watch');
+            //alert('watch');
             navigator.geolocation.watchPosition(
                   app.onGetPositionSuccess
                 , app.onGetPossitionError
                 , options
             );
         }else if ( navigator.geolocation ) {
-            alert('not watch');
+            //alert('not watch');
             navigator.geolocation.getCurrentPosition( app.onGetPositionSuccess, app.onGetPossitionError );
         }
     },
