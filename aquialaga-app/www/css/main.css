@@ -126,9 +126,6 @@ body {
     z-index: 9999;
 }
 
-#btn-popup{
-	background-color: #FFCE65;
-}
 
 .alert.top{
 	top: 70px;
@@ -139,9 +136,18 @@ body {
 }
 
 .send-img{
-	background: url('../img/megafone2.svg'); no-repeat;
-	background-size: cover;
+	background: url('../img/megafone2.svg') no-repeat 1px;
+	background-size: 35px 35px;
+    background-position:center; 
 	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+.img_location {
+    background: url('../img/define_location.svg') no-repeat 1px;
+	background-size: 35px 53px;
+    height: 100%;
 	width: 100%;
 	display: block;
 }
@@ -150,18 +156,32 @@ body {
 	right:10px;
 }
 
-.botao_report.left{
+.botao_location.left{
 	left:10px;
 }
 
-.botao_report {
-	background-color: #eeeeee;
+.botao_location {
+	background-color: rgba(100,100,100,0.0);
     height: 65px;
     position: absolute;
     width: 65px;
     z-index: 99999;
     bottom: 10px;
+    border: 0px;
+
 }
+
+.botao_report {
+	background-color: rgba(100,100,100,0.8);
+    border-radius: 5px;
+    height: 65px;
+    position: absolute;
+    width: 65px;
+    z-index: 99999;
+    bottom: 10px;
+
+}
+
 
 .map-container{
 	height: 100%;

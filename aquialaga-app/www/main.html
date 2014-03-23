@@ -30,12 +30,12 @@
               <button type="button" data-level="2" class="btn btn-default btn-lg btn-send">Foda</button>
             </p>
         </div>
-        <button type="button" class="botao_report left btn btn-default" id="btn-current-pos" style="display:none">
+        <div class="botao_location left" id="btn-current-pos" style="display:none">
+            <span class="img_location"></span>
+        </div>
+        <div type="button" class="botao_report right" data-target="#popupReport-popup"  id="btn-popup" style="display:none">
             <span class="send-img"></span>
-        </button>
-        <button type="button" class="botao_report right btn btn-default" data-target="#popupReport-popup" disabled id="btn-popup" style="display:none">
-            <span class="send-img"></span>
-        </button>
+        </div>
         <div  id="map_canvas" class="map">
 
         </div>
@@ -58,7 +58,7 @@
                         <p class="numero_ocorrencias" id="num-ocorrencias-user">0</p>
                     </div>
                     <div class="row text-center">
-                        <p class="label_ocorrencias">OCORRÊNCIAS<br>NÃO OFICIAIS</p>
+                        <p class="label_ocorrencias">OCORRÊNCIAS<br>DE USUÁRIOS</p>
                     </div>
               </div>
                 <div class="previsao">
