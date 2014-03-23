@@ -3,7 +3,7 @@ var app = {
     myAddress: '',
     isGoingToRain: '',
     rain: [0,1,2,3,4,8,9,10,11,12,18,23,35,37,38,39,40,45,46,47],
-    host: 'http://179.184.209.215:3001/',
+    host: 'http://aqui-alaga-sp.ornitorrinko.com/',
     initialize: function() {
         this.bindEvents();
     },
