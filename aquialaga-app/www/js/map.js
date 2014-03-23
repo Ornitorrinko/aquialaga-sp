@@ -1,10 +1,17 @@
 var map, geocoder;
 var app = app ? app : {};
+var markersArray = [];
 app.map = {
 	scriptLoaded: false,
 	mapOptions: {
 		zoom: 17,
 		disableDefaultUI: true
+	},
+	clearOverlays: function() {
+	  for (var i = 0; i < markersArray.length; i++ ) {
+	    markersArray[i].setMap(null);
+	  }
+	  markersArray.length = 0;
 	},
 	loadScript: function(callback){
 		if(app.map.scriptLoaded)
@@ -57,6 +64,8 @@ app.map = {
 	            zIndex: 1
 	        });
     	}
+
+    	markersArray.push(marker);
 	},
 	plotMarkers: function(){
 		for (var i = 0; i < app.main.ocorrencias.length; i++) {

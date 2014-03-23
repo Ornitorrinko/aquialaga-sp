@@ -22,7 +22,7 @@ app.main = {
 			});
 
 			app.main.setOcorrenciasText();
-
+			app.map.clearOverlays();
 			if(!app.map.scriptLoaded)
 				app.map.loadScript('app.map.initialize');
 			else
