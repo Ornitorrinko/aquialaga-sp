@@ -10,14 +10,14 @@ app.map = {
 		if(app.map.scriptLoaded)
 			return;
 		app.map.scriptLoaded = true;
-		alert('loadScript');
+		//alert('loadScript');
 		var script = document.createElement('script');
 		script.type = 'text/javascript';
 		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlSgCtcNCTcjr2TS8ZUcjxlRCXpxsyME&v=3.exp&sensor=true&' +
 		  'callback='+callback;
 		document.body.appendChild(script);
 	},
-	plotMarker: function(lat, lng){
+	plotMarker: function(lat, lng, type){
 		var position = new google.maps.LatLng(lat, lng)
         var marker = new google.maps.Marker({
             position: position,
@@ -25,23 +25,19 @@ app.map = {
         });
 	},
 	plotMarkers: function(){
-		alert('plotMarkers');
+		//alert('plotMarkers');
 		for (var i = 0; i < app.main.ocorrencias.length; i++) {
-	        app.map.plotMarker(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude);
+	        app.map.plotMarker(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude, app.main.ocorrencias[i].qtdCET > 0 ? 'CET' : 'user');
 	    }
 	},
 	plotMyPosition: function(){
-		alert('plotMyPosition');
-		alert('lat'+app.myPosition.coords.latitude);
-		alert('lng'+app.myPosition.coords.longitude);
+		//alert('plotMyPosition');
 		var pos = new google.maps.LatLng(app.myPosition.coords.latitude,
 				app.myPosition.coords.longitude);
 		geocoder = new google.maps.Geocoder();
-		alert('geo'+JSON.stringify(geocoder));
 		alert('pos'+ JSON.stringify(pos));
 		geocoder.geocode({'latLng': pos}, function(results, status) {
-			alert('geocode =>' + JSON.stringify(results));
-	      if (status == google.maps.GeocoderStatus.OK) {
+		 if (status == google.maps.GeocoderStatus.OK) {
 	        if (results[1]) {
 	        	app.myAddress = results[0].address_components[1].long_name + ', ' + 
 	        					results[0].address_components[0].long_name + ' - ' +
@@ -76,12 +72,12 @@ app.map = {
 		});
 	},
 	initialize: function(){
-		alert('initialize');
+		//alert('initialize');
 		
 		map = new google.maps.Map(document.getElementById('map_canvas'),
 			app.map.mapOptions);
 	    
-	    google.maps.event.addListener(map,'center_changed', function(event) {
+	    google.maps.event.addListener(map,'dragend', function(event) {
 			var geo = map.getCenter()
 			var position = {
 				coords:{

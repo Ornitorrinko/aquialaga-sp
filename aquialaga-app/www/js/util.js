@@ -13,6 +13,10 @@ function alertify(title, msg, position, wait){
 	},wait||4000);
 }
 
+$.ajaxSetup({
+    cache: false
+});
+
 Array.prototype.contains = function(item) {
   	var i = this.length;
 

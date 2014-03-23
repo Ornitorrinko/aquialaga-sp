@@ -27,12 +27,12 @@ var app = {
                 , options
             );
         }else if ( navigator.geolocation ) {
-            alert('getPos');
+            alert('not watch');
             navigator.geolocation.getCurrentPosition( app.onGetPositionSuccess, app.onGetPossitionError );
         }
     },
     onGetPositionSuccess: function(position){
-            alert('agora foi');
+            //alert('agora foi');
             app.myPosition = position;
             app.main.bindEvents();
     },

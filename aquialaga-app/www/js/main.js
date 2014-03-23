@@ -25,8 +25,8 @@ app.main = {
 
 			if(!app.map.scriptLoaded)
 				app.map.loadScript('app.map.initialize');
-			/*else
-				app.map.plotMarkers();*/
+			else
+				app.map.plotMarkers();
 		});
 
 		getOcorrecias.fail(function(err){
