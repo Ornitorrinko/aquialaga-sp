@@ -1,5 +1,5 @@
 var models = require('../models')
-	, rangeToFindOcorrenciasKm = 10
+	, rangeToFindOcorrenciasKm = 1
 	, rangeToFindOcorrenciasDegree = rangeToFindOcorrenciasKm/111
 	, Q = require('q')
     , CETOcorrencia = models.CETOcorrencia
