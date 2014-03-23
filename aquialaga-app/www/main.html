@@ -27,38 +27,41 @@
     <div role="main" data-position="" id="main" class="main">
         <div  id="map_canvas" class="map"></div>
 
-    <div id="footer">
-        <div class="endereco" id="endereco">
-        </div>
-        <div class="">
-            <div class="col-xs-6 ocorrencias_cet">
-                <div class="row text-center">
-                    <p class="numero_ocorrencias" id="num-ocorrencias-cet">0</p>
-                </div>
-                <div class="row text-center">
-                    <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
-                </div>
-
+        <div id="footer">
+            <div class="endereco" id="endereco">
             </div>
-            <div class="col-xs-6 ocorrencias_user">
-                <div class="row text-center">
-                    <p class="numero_ocorrencias" id="num-ocorrencias-user">0</p>
+            <div class="">
+                <div class="col-xs-6 ocorrencias_cet">
+                    <div class="row text-center">
+                        <p class="numero_ocorrencias" id="num-ocorrencias-cet">0</p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
+                    </div>
+    
                 </div>
-                <div class="row text-center">
-                    <p class="label_ocorrencias">OCORRÊNCIAS<br>NÃO OFICIAIS</p>
+                <div class="col-xs-6 ocorrencias_user">
+                    <div class="row text-center">
+                        <p class="numero_ocorrencias" id="num-ocorrencias-user">0</p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="label_ocorrencias">OCORRÊNCIAS<br>NÃO OFICIAIS</p>
+                    </div>
+              </div>
+                <div class="previsao">
+                    <div class="col-xs-6 previsao_label text-center">
+                        <p class="">PREVISAO DE CHUVA:</p>
+                    </div>
+                    <div class="col-xs-6 previsao_info text-center">
+                        <p id="previsao-tempo"> - </p>
+                   </div>
                 </div>
-          </div>
-            <div class="previsao">
-                <div class="col-xs-6 previsao_label text-center">
-                    <p class="">PREVISAO DE CHUVA:</p>
-                </div>
-                <div class="col-xs-6 previsao_info text-center">
-                    <p id="previsao-tempo"> - </p>
-               </div>
-            </div>
+            </div> 
         </div>
-        
-    </div>
+        <div class="botao_report">
+            <img src="img/megafone2.svg">
+        </div>
+     </div>
      
         <!-- ## start of lib script -->
         <script src="js/jquery.min.js"></script>
