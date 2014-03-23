@@ -19,7 +19,6 @@ exports.createRoutes = function ( app , prefix ) {
 	prefix = (prefix || '').trim()
 
 	var apis = config.apiNames
-
 	for (var i = apis.length - 1; i >= 0; i--) {
 		
 		var apiFileName = path.join(__dirname, apis[i] );
@@ -29,6 +28,7 @@ exports.createRoutes = function ( app , prefix ) {
 			for (var j = apiRoutes.length - 1; j >= 0; j--) {
 				var api = apiRoutes[j]
 				var route = prefix + api.route
+				console.log(api)
 				app[api.httpMethod || 'get' ]( route, getMethodAsAPI( route, api.func ) )
 			};
 

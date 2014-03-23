@@ -7,12 +7,11 @@ var environments = {
 				,	socketPort : process.env.PORT || 3000
 				,	socketHost : '127.0.0.1'
 				,	env : global.process.env.NODE_ENV || 'dev' 
-
 				,	mongoUrl:  'mongodb://localhost/dev'
 				, 	mongoSessionCollection : 'session'
 				,   parametrosImportacao : { codigoAlagamento : 302, nivelAlagamentoPadrao : 1 }
 				,   jobs : [ { name : 'Obter dados CET'
-				             , interval : 10000 * 60 * 10 // 10 minutos
+				             , interval : 1 * 60 * 10 // 10 minutos
 				             , method : 
 				             	function() { 
 				             		
@@ -45,7 +44,7 @@ var environments = {
 							  }
 							}
 				, 	keys: {
-						googleMaps: ""
+						  googleMaps: ""
 						, yahooWeather: ""
 					}
 				, 	apiEndpoints: {
@@ -57,12 +56,25 @@ var environments = {
 				,	appAddress : '127.0.0.1:3000'
 				,	socketPort : process.env.PORT || 3000
 				,	socketHost : '127.0.0.1'
-				,	env : global.process.env.NODE_ENV || 'dev' 
+				,	env : global.process.env.NODE_ENV || 'production' 
 
-				,	mongoUrl:  'mongodb://localhost/dev'
+				,	mongoUrl:  'mongodb://localhost/production'
 				, 	mongoSessionCollection : 'session'
-				,   jobs : [ ]
-				,	apiNames : ['ocorrencia']
+				,   jobs : [
+				 			{ name : 'Obter dados CET', interval : 1000 * 60 * 120 // 120 minutos
+				            , method : function() { 
+				             		var api = new (require('./api/importador').api)()
+				             		api.importar()
+				              } 
+							}, 
+							{ name : 'Lat-Lng', interval : 1000 * 60 * 120 // 120 minutos
+				            , method : function() { 
+				             	var api = new (require('./api/importador').api)()
+				             		api.preencherLatLng()
+				              }
+							} 
+						   ]
+				,	apiNames : ['ocorrencia', 'weather']
 				,	db :    { host 		: "mysql.ornitorrinko.com" 
 							, user 		: "ornitorrinko04"
 							, password 	: "aquialagasp"
