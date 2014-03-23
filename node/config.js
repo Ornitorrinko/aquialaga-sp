@@ -2,7 +2,7 @@
 var path = require('path')
 var environments = { 
 	development	: {	session : {secret:'br.com.aquialagasp.1234567890QWERTY'}
-				,	socketPortAPI : 3001
+				,	socketPortAPI : process.env.PORT || 3001
 				,	appAddress : '127.0.0.1:3000'
 				,	socketPort : process.env.PORT || 3000
 				,	socketHost : '127.0.0.1'
@@ -53,7 +53,7 @@ var environments = {
 					}
 				}
 ,	production	: {	session : {secret:'br.com.aquialagasp.1234567890QWERTY'}
-				,	socketPortAPI : 3001
+				,	socketPortAPI : process.env.PORT || 3001
 				,	appAddress : '127.0.0.1:3000'
 				,	socketPort : process.env.PORT || 3000
 				,	socketHost : '127.0.0.1'
