@@ -80,7 +80,7 @@ app.main = {
 		});
 
 		numOcorrenciasCET.text(countCET);
-		numOcorrenciasCET.text(countUser);
+		numOcorrenciasUsers.text(countUser);
 	},
 	setPrevisaoDoTempoText: function(){
 		var previsaoTempo = $('#previsao-tempo');

@@ -11,6 +11,7 @@
 *.class
 
 aquialaga-app/platforms/
+aquialaga-app/plugins/
 
 # generated files - android project subfolder
 aquialaga-app/platforms/Android/bin/
