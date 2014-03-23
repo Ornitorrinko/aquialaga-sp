@@ -3,13 +3,23 @@ var app = app ? app : {};
 app.main = {
 	urlOcorrencias: app.host+'ocorrencias/',
 	ocorrencias: {},
+	ocorrenciaPrecisionKm: 0.1,
 	getOcorrencias: function(position){
+		var ocorrenciasPrecisionDg = this.ocorrenciaPrecisionKm/111;
 		var urlGetOcorrencias = app.main.urlOcorrencias+position.coords.latitude+'/'+position.coords.longitude;
 		
 		var getOcorrecias = $.get(urlGetOcorrencias);
 
 		getOcorrecias.done(function(data){
 			app.main.ocorrencias = data.data || {};
+
+			var ocorrenciasInMyPosition = _.filter(app.main.ocorrencias, function(ocorrencia){ 
+				return (ocorrencia.latitude > app.myPosition.coords.latitude - ocorrenciasPrecisionDg && 
+				ocorrencia.latitude < app.myPosition.coords.latitude + ocorrenciasPrecisionDg &&
+				ocorrencia.longitude > app.myPosition.coords.longitude - ocorrenciasPrecisionDg && 
+				ocorrencia.longitude < app.myPosition.coords.longitude + ocorrenciasPrecisionDg);
+			});
+
 			if(!app.map.scriptLoaded)
 				app.map.loadScript();
 			else
