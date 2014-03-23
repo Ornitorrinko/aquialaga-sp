@@ -26,14 +26,12 @@
     <!-- Begin page content --> 
     <div role="main" data-position="" id="main" class="main">
         <div  id="map_canvas" class="map"></div>
-        <div class="endereco">
-                <p>RUA CONEGO EUGÊNIO LEITE, 623</p>
-                <p>PINHEIROS</p>
+        <div class="endereco" id="endereco">
         </div>
         <div class="row">
             <div class="col-xs-6 ocorrencias_cet">
                 <div class="row text-center">
-                    <p class="numero_ocorrencias">10</p>
+                    <p class="numero_ocorrencias" id="num-ocorrencias-cet">0</p>
                 </div>
                 <div class="row text-center">
                     <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
@@ -42,10 +40,10 @@
             </div>
             <div class="col-xs-6 ocorrencias_user">
                 <div class="row text-center">
-                    <p class="numero_ocorrencias">10</p>
+                    <p class="numero_ocorrencias" id="num-ocorrencias-user">0</p>
                 </div>
                 <div class="row text-center">
-                    <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
+                    <p class="label_ocorrencias">OCORRÊNCIAS<br>NÃO OFICIAIS</p>
                 </div>
             </div>
         </div>
@@ -54,7 +52,7 @@
                     <p class="">PREVISAO DE CHUVA:</p>
                 </div>
                 <div class="col-xs-6 previsao_info text-center">
-                    <p class="">SIM</p>
+                    <p id="previsao-tempo"> - </p>
                </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ var app = app ? app : {};
 app.main = {
 	urlOcorrencias: app.host+'ocorrencias/',
 	ocorrencias: {},
+	ocorrenciasInMyPosition: {},
 	ocorrenciaPrecisionKm: 0.1,
 	getOcorrencias: function(position){
 		var ocorrenciasPrecisionDg = this.ocorrenciaPrecisionKm/111;
@@ -13,12 +14,15 @@ app.main = {
 		getOcorrecias.done(function(data){
 			app.main.ocorrencias = data.data || {};
 
-			var ocorrenciasInMyPosition = _.filter(app.main.ocorrencias, function(ocorrencia){ 
+			app.main.ocorrenciasInMyPosition = _.filter(app.main.ocorrencias, function(ocorrencia){ 
 				return (ocorrencia.latitude > app.myPosition.coords.latitude - ocorrenciasPrecisionDg && 
 				ocorrencia.latitude < app.myPosition.coords.latitude + ocorrenciasPrecisionDg &&
 				ocorrencia.longitude > app.myPosition.coords.longitude - ocorrenciasPrecisionDg && 
 				ocorrencia.longitude < app.myPosition.coords.longitude + ocorrenciasPrecisionDg);
 			});
+
+			app.main.setEnderecoText();
+			app.main.setOcorrenciasText();
 
 			if(!app.map.scriptLoaded)
 				app.map.loadScript();
@@ -27,7 +31,7 @@ app.main = {
 		});
 
 		getOcorrecias.fail(function(err){
-			var a = err;
+			console.log('getOcorrencias =>', err);
 		});
 	},
 	postOcorrencia: function(button){
@@ -57,12 +61,36 @@ app.main = {
 		$.ajax(app.host + 'saopedro/previsao')
 			.done(function(previsao){
 				if(previsao && app.rain.contains(parseInt(previsao.data.code)))
-					app.isGoingToRain = 'Sim'
+					app.isGoingToRain = 'SIM'
 				else
-					app.isGoingToRain = 'Não'
+					app.isGoingToRain = 'NÃO'
+
+				app.main.setPrevisaoDoTempoText();
 			}).fail(function(err){
 				console.log('getPrevisaoDoTempo =>',err);
 			});
+	},
+	setEnderecoText: function(){
+		var endereco = $('#endereco');
+		endereco.text(app.myAddress.replace(' - São Paulo, Brazil', ''));
+	},
+	setOcorrenciasText: function(){
+		var numOcorrenciasCET = $('#num-ocorrencias-cet'),
+			numOcorrenciasUsers = $('#num-ocorrencias-user'),
+			countCET = 0,
+			countUser = 0;
+
+		_.each(app.main.ocorrenciasInMyPosition, function(ocorrencia){
+			countCET += ocorrencia.qtdCET;
+			countUser += ocorrencia.qtdUsuario;
+		});
+
+		numOcorrenciasCET.text(countCET);
+		numOcorrenciasCET.text(countUser);
+	},
+	setPrevisaoDoTempoText: function(){
+		var previsaoTempo = $('#previsao-tempo');
+		previsaoTempo.text(app.isGoingToRain);
 	},
 	bindEvents: function(){
 		app.main.getOcorrencias(app.myPosition);
