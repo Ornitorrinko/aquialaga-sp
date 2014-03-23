@@ -5,21 +5,19 @@ var helpers = require('../helpers/index')
 	, url = require('url');
 
 var weather = function (){
+	var self = this;
+
 	return {
 		consultar : function(callback) {
-
 			YQL.exec("SELECT * FROM weather.forecast WHERE woeid = @woeid AND u='c'"
-				, {woeid: 202344868}
+				, {woeid: 26798778}
 				, function(error, response) {
-			    if (error) {
-			        console.log('Ops! Something wrong happened =(:', error);
-			    } else {
-			        var results = response.query.results;
-			        console.log('response=>', response);
+			    if (error)
+			    	callback(true, error);
+			    else {
+			        callback(null, response.query.results.channel.item.forecast[0]);
 			    }
 			});
-
-			// callback(status, response);
 		}
 	};
 };
