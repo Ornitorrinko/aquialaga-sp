@@ -2,11 +2,19 @@ var map, geocoder;
 var app = app ? app : {};
 app.map = {
 	scriptLoaded: false,
-	loadScript: function(ocorrencias){
+	mapOptions: {
+		zoom: 17,
+		disableDefaultUI: true
+	},
+	loadScript: function(callback){
+		if(app.map.scriptLoaded)
+			return;
+		app.map.scriptLoaded = true;
+		alert('loadScript');
 		var script = document.createElement('script');
 		script.type = 'text/javascript';
 		script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDWlSgCtcNCTcjr2TS8ZUcjxlRCXpxsyME&v=3.exp&sensor=true&' +
-		  'callback=app.map.initialize';
+		  'callback='+callback;
 		document.body.appendChild(script);
 	},
 	plotMarker: function(lat, lng){
@@ -17,22 +25,30 @@ app.map = {
         });
 	},
 	plotMarkers: function(){
+		alert('plotMarkers');
 		for (var i = 0; i < app.main.ocorrencias.length; i++) {
 	        app.map.plotMarker(app.main.ocorrencias[i].latitude, app.main.ocorrencias[i].longitude);
 	    }
 	},
 	plotMyPosition: function(){
+		alert('plotMyPosition');
+		alert('lat'+app.myPosition.coords.latitude);
+		alert('lng'+app.myPosition.coords.longitude);
 		var pos = new google.maps.LatLng(app.myPosition.coords.latitude,
 				app.myPosition.coords.longitude);
 		geocoder = new google.maps.Geocoder();
-
+		alert('geo'+JSON.stringify(geocoder));
+		alert('pos'+ JSON.stringify(pos));
 		geocoder.geocode({'latLng': pos}, function(results, status) {
+			alert('geocode =>' + JSON.stringify(results));
 	      if (status == google.maps.GeocoderStatus.OK) {
 	        if (results[1]) {
 	        	app.myAddress = results[0].address_components[1].long_name + ', ' + 
 	        					results[0].address_components[0].long_name + ' - ' +
 	        					results[0].address_components[2].long_name + ' - ' +
 	        					results[0].address_components[3].long_name;
+
+	        	app.main.setEnderecoText();
 	        	var image = new google.maps.MarkerImage(
 						'img/bluedot_retina.png',
 					null, 
@@ -51,6 +67,7 @@ app.map = {
 					visible: true
 				});
 
+				alert('imprimir mapa' + pos);
 				map.setCenter(pos);
 	        }
 	      } else {
@@ -59,13 +76,10 @@ app.map = {
 		});
 	},
 	initialize: function(){
-		app.map.scriptLoaded = true;
-		var mapOptions = {
-			zoom: 17,
-			disableDefaultUI: true
-		};
+		alert('initialize');
+		
 		map = new google.maps.Map(document.getElementById('map_canvas'),
-			mapOptions);
+			app.map.mapOptions);
 	    
 	    google.maps.event.addListener(map,'center_changed', function(event) {
 			var geo = map.getCenter()

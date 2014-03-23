@@ -19,45 +19,47 @@ var app = {
             maximumAge: 30000,*/
             timeout: 270000 
         };
-
-        if (app.isPhoneGap) {
-            console.log('watch');
+        if (app.isPhoneGap()) {
+            alert('watch');
             navigator.geolocation.watchPosition(
                   app.onGetPositionSuccess
                 , app.onGetPossitionError
                 , options
             );
-        } else if ( navigator.geolocation ) {
-            console.log('getPos');
+        }else if ( navigator.geolocation ) {
+            alert('getPos');
             navigator.geolocation.getCurrentPosition( app.onGetPositionSuccess, app.onGetPossitionError );
         }
     },
     onGetPositionSuccess: function(position){
-            console.log('agora foi');
+            alert('agora foi');
             app.myPosition = position;
             app.main.bindEvents();
     },
-    onGetPossitionError: function(errorFlag, a, b){
-         console.log('falhou '+ JSON.stringify(errorFlag));
+    defaultMap: function(){
+        errorFlag = app.errorFlag;
+        alert('falhou '+ JSON.stringify(errorFlag));
          if (errorFlag) {
             var content = 'Erro: O serviço de geolocalização falhou.';
           } else {
             var content = 'Erro: Seu navegador não suporta geolocalização.';
           }
-          var mapOptions = {
-            zoom: 17
-            };
-            
-          map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-          var options = {
-            map: map,
-            position: new google.maps.LatLng(60, 105),
-            content: content
-          };
 
-          map.setCenter(options.position);
+        var map = new google.maps.Map(document.getElementById('map_canvas'), app.map.mapOptions);
+        var options = {
+            map: map,
+            position: new google.maps.LatLng(-23.546707899999998,-46.6327437),
+            content: content
+        };
+
+        map.setCenter(options.position);
+    },
+    onGetPossitionError: function(errorFlag){
+        app.errorFlag = errorFlag;
+        app.map.loadScript('app.defaultMap');
     },
     isPhoneGap: function() {
-        return navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|IEMobile)/);
+        return  /^file:\/{3}[^\/]/i.test(window.location.href) 
+        && /ios|iphone|ipod|ipad|android/i.test(navigator.userAgent);
     }
 };

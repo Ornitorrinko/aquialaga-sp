@@ -21,13 +21,12 @@ app.main = {
 				ocorrencia.longitude < app.myPosition.coords.longitude + ocorrenciasPrecisionDg);
 			});
 
-			app.main.setEnderecoText();
 			app.main.setOcorrenciasText();
 
 			if(!app.map.scriptLoaded)
-				app.map.loadScript();
-			else
-				app.map.plotMarkers();
+				app.map.loadScript('app.map.initialize');
+			/*else
+				app.map.plotMarkers();*/
 		});
 
 		getOcorrecias.fail(function(err){
@@ -60,7 +59,7 @@ app.main = {
 	getPrevisaoDoTempo: function(){
 		$.ajax(app.host + 'saopedro/previsao')
 			.done(function(previsao){
-				if(previsao && app.rain.contains(parseInt(previsao.data.code)))
+				if(previsao && previsao.data && app.rain.contains(parseInt(previsao.data.code)))
 					app.isGoingToRain = 'SIM'
 				else
 					app.isGoingToRain = 'NÃO'
