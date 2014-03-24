@@ -1,7 +1,7 @@
 var map, geocoder;
 var app = app ? app : {};
 var markersArray = [];
-//var myMarker = null;
+var myMarker = null;
 app.map = {
 	scriptLoaded: false,
 	mapOptions: {
@@ -86,7 +86,7 @@ app.map = {
 	        					results[0].address_components[3].long_name;
 
 	        	app.main.setEnderecoText();
-	        	//if ( !myMarker ) {
+	        	if ( !myMarker ) {
 		        	var image = new google.maps.MarkerImage(
 							'img/bluedot_retina.png',
 						null, 
@@ -105,9 +105,9 @@ app.map = {
 						visible: true,
 						zIndex: 2
 					});
-				/*}else{
+				}else{
 					myMarker.setPosition( pos );
-				}*/
+				}
 
 				map.setCenter(pos);
 	        }
