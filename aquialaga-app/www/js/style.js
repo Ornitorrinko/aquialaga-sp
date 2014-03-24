@@ -10,10 +10,6 @@ function resize(){
 	popupButton.show();
 }
 
-window.onresize = function(event) {
-	resize();
-};
-
 $(document).ready(function(){
 	resize();
 });

@@ -17,7 +17,7 @@ var app = {
         var options = { 
             /*enableHighAccuracy: true,
             maximumAge: 30000,*/
-            timeout: 270000 
+            timeout: 270000
         };
         if (app.isPhoneGap()) {
             navigator.geolocation.watchPosition(
