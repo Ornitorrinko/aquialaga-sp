@@ -28,14 +28,14 @@ app.map = {
 				'img/cone.png',
 				null, 
 				null, 
-				new google.maps.Point( 8, 8 ),
+				new google.maps.Point( 8, 0 ),
 				new google.maps.Size( 34, 60 )
 			);
 		var imageUser = new google.maps.MarkerImage(
 				'img/user_pin.png',
 				null, 
 				null, 
-				new google.maps.Point( 8, 8 ),
+				new google.maps.Point( 20, 55 ),
 				new google.maps.Size( 34, 60 )
 			);
 		var position = new google.maps.LatLng(lat, lng)

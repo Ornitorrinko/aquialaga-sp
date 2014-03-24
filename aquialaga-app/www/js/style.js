@@ -1,4 +1,4 @@
-$(document).ready(function(){
+function resize(){
 	var content = $('#main'),
 		popupButton = $('#btn-popup'),
 		positionButton = $('#btn-current-pos'),
@@ -8,4 +8,12 @@ $(document).ready(function(){
 	content.height(height);
 	positionButton.show();
 	popupButton.show();
+}
+
+window.onresize = function(event) {
+	resize();
+};
+
+$(document).ready(function(){
+	resize();
 });

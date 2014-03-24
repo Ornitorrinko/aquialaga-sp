@@ -45,7 +45,7 @@ app.main = {
 		
 		postOcorrencia.done(function(data){
 			alertify('Obrigado!', 'Ocorrencia efetuada com sucesso', 'bottom');
-			app.map.plotMarker(obj.latitude, obj.longitude);
+			app.main.getOcorrencias(app.myPosition);
 		});
 		postOcorrencia.fail(function(data){
 			alertify('Oops!', 'Ocorreu um erro', 'bottom');
