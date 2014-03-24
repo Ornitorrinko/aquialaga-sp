@@ -1,6 +1,7 @@
 var map, geocoder;
 var app = app ? app : {};
 var markersArray = [];
+var myMarker = null;
 app.map = {
 	scriptLoaded: false,
 	mapOptions: {
@@ -85,24 +86,28 @@ app.map = {
 	        					results[0].address_components[3].long_name;
 
 	        	app.main.setEnderecoText();
-	        	var image = new google.maps.MarkerImage(
-						'img/bluedot_retina.png',
-					null, 
-					null, 
-					new google.maps.Point( 8, 8 ), 
-					new google.maps.Size( 17, 17 )
-				);
-				// then create the new marker
-				myMarker = new google.maps.Marker({
-					flat: true,
-					icon: image,
-					map: map,
-					optimized: false,
-					position: pos,
-					title: 'I might be here',
-					visible: true,
-					zIndex: 2
-				});
+	        	if ( !myMarker ) {
+		        	var image = new google.maps.MarkerImage(
+							'img/bluedot_retina.png',
+						null, 
+						null, 
+						new google.maps.Point( 8, 8 ), 
+						new google.maps.Size( 17, 17 )
+					);
+					// then create the new marker
+					myMarker = new google.maps.Marker({
+						flat: true,
+						icon: image,
+						map: map,
+						optimized: false,
+						position: pos,
+						title: 'I might be here',
+						visible: true,
+						zIndex: 2
+					});
+				}else{
+					myMarker.setPosition( pos );
+				}
 
 				map.setCenter(pos);
 	        }
