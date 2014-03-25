@@ -1,0 +1,96 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="width=device-width">
+        <title>Aqui alaga</title>
+        
+        <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/Lato-Light.css" />
+        <link rel="stylesheet" href="css/Lato-Regular.css" />
+    </head>
+    <body>
+        <div id="header" class="navbar navbar-default navbar-fixed-top" role="navigation" style="width:100%">
+            <div class="container">
+                <div class="navbar-header text-center">
+                    <img src="./img/logo.svg" height="45px" alt="">  
+                </div>
+            </div>
+
+        </div>
+    
+    <!-- Begin page content --> 
+    <div role="main" data-position="" id="main" class="main">
+        <div id="popupReport-popup" style="display:none">
+            <p class="title">Aqui alaga?</p>
+            <p>
+              <button type="button" data-level="1" class="btn btn-default btn-lg btn-send" style="margin-right:20px">Sim</button>
+              <button type="button" id="close-popup" class="btn btn-default btn-lg">Não</button>
+            </p>
+        </div>
+        <div class="botao_location left" id="btn-current-pos" style="display:none">
+            <span class="img_location"></span>
+        </div>
+        <div type="button" class="botao_report right" data-target="#popupReport-popup"  id="btn-popup" style="display:none">
+            <span class="send-img"></span>
+        </div>
+        <div  id="map_canvas" class="map">
+
+        </div>
+    </div>
+        <div id="footer">
+            <div class="endereco" id="endereco">
+            </div>
+            <div class="">
+                <div class="col-xs-6 ocorrencias_cet">
+                    <div class="row text-center">
+                        <p class="numero_ocorrencias" id="num-ocorrencias-cet">0</p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="label_ocorrencias">OCORRÊNCIAS<br>OFICIAIS CET</p>
+                    </div>
+    
+                </div>
+                <div class="col-xs-6 ocorrencias_user">
+                    <div class="row text-center">
+                        <p class="numero_ocorrencias" id="num-ocorrencias-user">0</p>
+                    </div>
+                    <div class="row text-center">
+                        <p class="label_ocorrencias">OCORRÊNCIAS<br>DE USUÁRIOS</p>
+                    </div>
+              </div>
+                <div class="previsao">
+                    <div class="col-xs-6 previsao_label text-center">
+                        <p class="">PREVISAO DE CHUVA:</p>
+                    </div>
+                    <div class="col-xs-6 previsao_info text-center">
+                        <p id="previsao-tempo"> SIM </p>
+                   </div>
+                </div>
+            </div> 
+        </div> 
+     
+        <!-- ## start of lib script -->
+        <script src="js/jquery.min.js"></script>
+        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/util.js"></script>
+        <script src="assets/underscore-min.js"></script>
+        <!-- ## end of lib script -->
+
+        <script type="text/javascript" src="js/style.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <script type="text/javascript">
+            if(app.isPhoneGap())
+                app.initialize();
+            else
+                app.onDeviceReady();
+        </script>
+    </body>
+</html>
