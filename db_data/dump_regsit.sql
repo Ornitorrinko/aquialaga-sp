@@ -13,7 +13,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: regsit; Type: TABLE; Schema: alagamentos; Owner: pgsql; Tablespace: 
+-- Name: regsit; Type: TABLE; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 CREATE TABLE regsit (
@@ -24,10 +24,10 @@ CREATE TABLE regsit (
 );
 
 
-ALTER TABLE alagamentos.regsit OWNER TO pgsql;
+ALTER TABLE alagamentos.regsit OWNER TO ornitorrinko1;
 
 --
--- Data for Name: regsit; Type: TABLE DATA; Schema: alagamentos; Owner: pgsql
+-- Data for Name: regsit; Type: TABLE DATA; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 COPY regsit (rs_regiao, rs_situacao, rs_data, rs_usuario) FROM stdin;
@@ -6343,7 +6343,7 @@ SM	1	2014-05-18 17:38:44.777	thomaz
 
 
 --
--- Name: rs_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: pgsql; Tablespace: 
+-- Name: rs_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 ALTER TABLE ONLY regsit
@@ -6351,7 +6351,7 @@ ALTER TABLE ONLY regsit
 
 
 --
--- Name: rs_f_regiao; Type: FK CONSTRAINT; Schema: alagamentos; Owner: pgsql
+-- Name: rs_f_regiao; Type: FK CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 ALTER TABLE ONLY regsit
@@ -6359,7 +6359,7 @@ ALTER TABLE ONLY regsit
 
 
 --
--- Name: rs_f_situacao; Type: FK CONSTRAINT; Schema: alagamentos; Owner: pgsql
+-- Name: rs_f_situacao; Type: FK CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 ALTER TABLE ONLY regsit
@@ -6367,14 +6367,12 @@ ALTER TABLE ONLY regsit
 
 
 --
--- Name: regsit; Type: ACL; Schema: alagamentos; Owner: pgsql
+-- Name: regsit; Type: ACL; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 REVOKE ALL ON TABLE regsit FROM PUBLIC;
-REVOKE ALL ON TABLE regsit FROM pgsql;
-GRANT ALL ON TABLE regsit TO pgsql;
-GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE regsit TO cge;
-
+REVOKE ALL ON TABLE regsit FROM ornitorrinko1;
+GRANT ALL ON TABLE regsit TO ornitorrinko1;
 
 --
 -- PostgreSQL database dump complete

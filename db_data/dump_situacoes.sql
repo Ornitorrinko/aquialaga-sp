@@ -13,7 +13,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: situacoes; Type: TABLE; Schema: alagamentos; Owner: pgsql; Tablespace: 
+-- Name: situacoes; Type: TABLE; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 CREATE TABLE situacoes (
@@ -23,10 +23,10 @@ CREATE TABLE situacoes (
 );
 
 
-ALTER TABLE alagamentos.situacoes OWNER TO pgsql;
+ALTER TABLE alagamentos.situacoes OWNER TO ornitorrinko1;
 
 --
--- Data for Name: situacoes; Type: TABLE DATA; Schema: alagamentos; Owner: pgsql
+-- Data for Name: situacoes; Type: TABLE DATA; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 COPY situacoes (s_situacao, s_nome, s_rgb) FROM stdin;
@@ -37,7 +37,7 @@ COPY situacoes (s_situacao, s_nome, s_rgb) FROM stdin;
 
 
 --
--- Name: s_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: pgsql; Tablespace: 
+-- Name: s_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 ALTER TABLE ONLY situacoes
@@ -45,13 +45,12 @@ ALTER TABLE ONLY situacoes
 
 
 --
--- Name: situacoes; Type: ACL; Schema: alagamentos; Owner: pgsql
+-- Name: situacoes; Type: ACL; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 REVOKE ALL ON TABLE situacoes FROM PUBLIC;
-REVOKE ALL ON TABLE situacoes FROM pgsql;
-GRANT ALL ON TABLE situacoes TO pgsql;
-GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE situacoes TO cge;
+REVOKE ALL ON TABLE situacoes FROM ornitorrinko1;
+GRANT ALL ON TABLE situacoes TO ornitorrinko1;
 
 
 --

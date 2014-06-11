@@ -13,7 +13,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: zonas; Type: TABLE; Schema: alagamentos; Owner: pgsql; Tablespace: 
+-- Name: zonas; Type: TABLE; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 CREATE TABLE zonas (
@@ -22,10 +22,10 @@ CREATE TABLE zonas (
 );
 
 
-ALTER TABLE alagamentos.zonas OWNER TO pgsql;
+ALTER TABLE alagamentos.zonas OWNER TO ornitorrinko1;
 
 --
--- Data for Name: zonas; Type: TABLE DATA; Schema: alagamentos; Owner: pgsql
+-- Data for Name: zonas; Type: TABLE DATA; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 COPY zonas (z_zona, z_nome) FROM stdin;
@@ -41,7 +41,7 @@ COPY zonas (z_zona, z_nome) FROM stdin;
 
 
 --
--- Name: z_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: pgsql; Tablespace: 
+-- Name: z_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 ALTER TABLE ONLY zonas
@@ -49,12 +49,12 @@ ALTER TABLE ONLY zonas
 
 
 --
--- Name: zonas; Type: ACL; Schema: alagamentos; Owner: pgsql
+-- Name: zonas; Type: ACL; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 REVOKE ALL ON TABLE zonas FROM PUBLIC;
-REVOKE ALL ON TABLE zonas FROM pgsql;
-GRANT ALL ON TABLE zonas TO pgsql;
+REVOKE ALL ON TABLE zonas FROM ornitorrinko1;
+GRANT ALL ON TABLE zonas TO ornitorrinko1;
 GRANT INSERT,SELECT,UPDATE,DELETE ON TABLE zonas TO cge;
 
 

@@ -13,7 +13,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: regioes; Type: TABLE; Schema: alagamentos; Owner: cge; Tablespace: 
+-- Name: regioes; Type: TABLE; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 CREATE TABLE regioes (
@@ -25,10 +25,10 @@ CREATE TABLE regioes (
 );
 
 
-ALTER TABLE alagamentos.regioes OWNER TO cge;
+ALTER TABLE alagamentos.regioes OWNER TO ornitorrinko1;
 
 --
--- Data for Name: regioes; Type: TABLE DATA; Schema: alagamentos; Owner: cge
+-- Data for Name: regioes; Type: TABLE DATA; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 COPY regioes (r_regiao, r_nome, r_zona, r_ultsituacao, r_ultsitdata) FROM stdin;
@@ -70,7 +70,7 @@ SM	São Mateus	4	1	2014-05-18 17:38:44.777
 
 
 --
--- Name: r_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: cge; Tablespace: 
+-- Name: r_idx1; Type: CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1; Tablespace: 
 --
 
 ALTER TABLE ONLY regioes
@@ -78,7 +78,7 @@ ALTER TABLE ONLY regioes
 
 
 --
--- Name: r_f_situacao; Type: FK CONSTRAINT; Schema: alagamentos; Owner: cge
+-- Name: r_f_situacao; Type: FK CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 ALTER TABLE ONLY regioes
@@ -86,7 +86,7 @@ ALTER TABLE ONLY regioes
 
 
 --
--- Name: r_f_zona; Type: FK CONSTRAINT; Schema: alagamentos; Owner: cge
+-- Name: r_f_zona; Type: FK CONSTRAINT; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 ALTER TABLE ONLY regioes
@@ -94,12 +94,12 @@ ALTER TABLE ONLY regioes
 
 
 --
--- Name: regioes; Type: ACL; Schema: alagamentos; Owner: cge
+-- Name: regioes; Type: ACL; Schema: alagamentos; Owner: ornitorrinko1
 --
 
 REVOKE ALL ON TABLE regioes FROM PUBLIC;
-REVOKE ALL ON TABLE regioes FROM cge;
-GRANT ALL ON TABLE regioes TO cge;
+REVOKE ALL ON TABLE regioes FROM ornitorrinko1;
+GRANT ALL ON TABLE regioes TO ornitorrinko1;
 
 
 --
