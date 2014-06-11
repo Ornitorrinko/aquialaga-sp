@@ -9,7 +9,7 @@
       "sequelize": "*"
     , "sequelize-mysql": "*"
     , "forever":"*"
-    , "express": "*"
+    , "express": "3.0.0"
     , "mysql": "*"
     , "date-format-lite"	: "*"
     , "path": "*"
