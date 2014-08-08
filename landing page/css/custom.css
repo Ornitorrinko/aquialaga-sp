@@ -120,11 +120,15 @@ footer img {
 	height: auto;
 }
 
-
 .smallscreen {
   display: none;
 }
 
+.footer-fixed {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
 @media (max-width: 93.75rem) {
   .background-mockup {
     padding:0px;
