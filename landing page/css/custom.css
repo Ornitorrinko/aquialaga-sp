@@ -42,10 +42,10 @@ body {
 
 .background-mockup {
 	background-position: 82% 15%;
-	background-image: url(../img/mockup.png);
+	background-image: url(../img/mockMapa.png);
 	background-color: #56c6d2;
 	background-repeat: no-repeat;
-	background-size: 250px;
+	background-size: 220px;
 }
 
 .header-h1:after {
@@ -62,6 +62,9 @@ body {
 	margin: 30px 0 0;
 }
 
+.btns-download img {
+	max-width: 140px;
+}
 .section-1 .glyphicon,
 .section-2 .glyphicon {
 	font-size: 90px;
